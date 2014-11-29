@@ -12,9 +12,9 @@ public class PuzzleParser implements IParser {
 		}
 		if(parts.length != 6)
 			return false;							//il numero di elementi della Stringa dev'essere obbligatoriamente 6 (id, char, id_n, id_e, id_s, id_w)
-		if(parts[1].length() > 1 || parts[1].matches("[\\r\\n]+"))
+		if(parts[1].length() > 1 || parts[1].equals("\n"))
 			return false;							//il carattere del pezzo non puo' essere piu' lungo di una lettera e non puo' essere il carattere caporiga
-		System.out.println("Carattere nel pezzo: " + parts[1]);
+		System.out.println("Carattere nel pezzo: " + parts[1] + ";");
 		return true;
 		
 	}
