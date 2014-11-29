@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,6 @@ import Parser.PuzzleParser;
 public class PuzzleSolver {
 	
 	private static Charset charset = StandardCharsets.UTF_8;
-	private List<String> puzzle;
 
 	private static List<String> readContent(Path inputPath) {
 		List<String> content = new ArrayList<String>();
@@ -42,7 +42,13 @@ public class PuzzleSolver {
 	}
 	
 	public static void main(String[] args) {
+		String inputFile = args[0];
+		String outputFile = args[1];
 		
+		Path inputPath = Paths.get(inputFile);		//PROVALO DA RIGA DI COMANDO
+		Path outputPath = Paths.get(outputFile);
+		List<String> puzzle = readContent(inputPath);
+		//writeContent(outputPath, inputContent);
 
 	}
 
