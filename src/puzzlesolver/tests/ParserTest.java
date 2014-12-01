@@ -1,7 +1,7 @@
-package Tests;
+package puzzlesolver.tests;
 
-import Parser.PuzzleParser;
-import Parser.IParser;
+import puzzlesolver.parser.IParser;
+import puzzlesolver.parser.PuzzleParser;
 
 public class ParserTest {
 

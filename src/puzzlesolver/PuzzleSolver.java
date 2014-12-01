@@ -1,3 +1,5 @@
+package puzzlesolver;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -9,8 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import Parser.IParser;
-import Parser.PuzzleParser;
+import puzzlesolver.parser.IParser;
+import puzzlesolver.parser.PuzzleParser;
 
 
 public class PuzzleSolver {
@@ -55,3 +57,4 @@ public class PuzzleSolver {
 	}
 
 }
+

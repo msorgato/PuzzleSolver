@@ -1,4 +1,4 @@
-package Parser;
+package puzzlesolver.parser;
 
 public class PuzzleParser implements IParser {
 	

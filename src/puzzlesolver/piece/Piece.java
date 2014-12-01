@@ -1,4 +1,4 @@
-package Piece;
+package puzzlesolver.piece;
 
 public class Piece {
 	private String id;
