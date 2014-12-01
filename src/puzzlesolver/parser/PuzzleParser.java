@@ -23,7 +23,6 @@ public class PuzzleParser implements IParser {
 			return false;							//nessun campo dell'input puo' essere vuoto
 		if(parts[1].length() > 1 || parts[1].equals("\n"))
 			return false;							//il carattere del pezzo non puo' essere piu' lungo di una lettera e non puo' essere il carattere caporiga
-		System.out.println("Carattere nel pezzo: " + parts[1] + ";");
 		return true;
 	}
 	

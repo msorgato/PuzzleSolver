@@ -45,13 +45,17 @@ public class PuzzleSolver {
 	
 	public static void main(String[] args) {
 		String inputFile = args[0];
-		String outputFile = args[1];
+		//String outputFile = args[1];
 		
 		Path inputPath = Paths.get(inputFile);		//PROVALO DA RIGA DI COMANDO
-		Path outputPath = Paths.get(outputFile);
+		//Path outputPath = Paths.get(outputFile);
 		List<String> puzzle = readContent(inputPath);
 		if(puzzle != null)
 			System.out.println("YATTA!");
+		System.out.println(puzzle.get(0));
+		System.out.println(puzzle.get(1));
+		System.out.println(puzzle.get(2));
+		System.out.println(puzzle.get(3));
 		//writeContent(outputPath, inputContent);
 
 	}
