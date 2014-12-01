@@ -1,4 +1,4 @@
-﻿package Parser;
+package Parser;
 
 public class PuzzleParser implements IParser {
 	
@@ -10,7 +10,6 @@ public class PuzzleParser implements IParser {
 		return true;
 	}
 	
-	@Override
 	public boolean parseLine(String line) {
 		String[] parts = line.split("\t");			//divido gli elementi della stringa splittando sul carattere di tabulazione
 		for(int i = 0; i < parts.length; i++) {
@@ -21,15 +20,17 @@ public class PuzzleParser implements IParser {
 		if(parts.length != 6)
 			return false;							//il numero di elementi della Stringa dev'essere obbligatoriamente 6 (id, char, id_n, id_e, id_s, id_w)
 		if(!inputNotEmpty(parts))
-			return false;							//nessun campo dell'input può essere vuoto
+			return false;							//nessun campo dell'input puo' essere vuoto
 		if(parts[1].length() > 1 || parts[1].equals("\n"))
 			return false;							//il carattere del pezzo non puo' essere piu' lungo di una lettera e non puo' essere il carattere caporiga
 		System.out.println("Carattere nel pezzo: " + parts[1] + ";");
 		return true;
-		
 	}
-
-	@Override
+	
+	/*
+	 * Questo metodo si potrebbe ampliare controllando che non esistano ID uguali nella stessa posizione cardinale
+	 * di un dato pezzo. Così poi l'algoritmo di ordinamento non si sminchia.
+	 */
 	public int parsePuzzle(String[] puzzle) {
 		for(int i = 0; i < puzzle.length; i++) 
 			if(!parseLine(puzzle[i]))				//se il parsing della stringa corrente ritorna falso,  

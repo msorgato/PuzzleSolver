@@ -1,4 +1,4 @@
-﻿package Piece;
+package Piece;
 
 public class Piece {
 	private String id;

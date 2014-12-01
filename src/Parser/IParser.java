@@ -1,4 +1,4 @@
-﻿package Parser;
+package Parser;
 
 public interface IParser {
 	//parser che stabilisce se una stringa sia lecita o meno

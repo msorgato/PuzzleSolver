@@ -1,4 +1,4 @@
-﻿package Tests;
+package Tests;
 
 import Parser.PuzzleParser;
 import Parser.IParser;

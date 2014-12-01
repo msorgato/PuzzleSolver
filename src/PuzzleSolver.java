@@ -15,7 +15,7 @@ import Parser.PuzzleParser;
 
 public class PuzzleSolver {
 	
-	private static Charset charset = StandardCharsets.UTF_8;
+	private static Charset charset = StandardCharsets.UTF_8;	//variabile statica di Classe contenente il Charset da utilizzare
 
 	private static List<String> readContent(Path inputPath) {
 		List<String> content = new ArrayList<String>();
@@ -48,6 +48,8 @@ public class PuzzleSolver {
 		Path inputPath = Paths.get(inputFile);		//PROVALO DA RIGA DI COMANDO
 		Path outputPath = Paths.get(outputFile);
 		List<String> puzzle = readContent(inputPath);
+		if(puzzle != null)
+			System.out.println("YATTA!");
 		//writeContent(outputPath, inputContent);
 
 	}
