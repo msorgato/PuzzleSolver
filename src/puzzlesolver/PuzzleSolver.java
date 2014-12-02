@@ -26,9 +26,12 @@ public class PuzzleSolver {
 			String line = null;
 			IParser parser = new PuzzleParser();
 			while ((line = reader.readLine()) != null) {
-				if(!parser.parseLine(line))
-					return null;
 				content.add(line);
+			}
+			int index = parser.parsePuzzle(content.toArray(new String[content.size()])); 
+			if(index != -1) {
+				System.out.println("Sono stati riscontrati problemi nella sintassi del file alla riga " + (index + 1));
+				return null;
 			}
 		} catch (IOException e) {
 			System.err.println(e);
