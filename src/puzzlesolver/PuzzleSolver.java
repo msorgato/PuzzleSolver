@@ -51,7 +51,7 @@ public class PuzzleSolver {
 		String inputFile = args[0];
 		//String outputFile = args[1];
 		
-		Path inputPath = Paths.get(inputFile);		//PROVALO DA RIGA DI COMANDO
+		Path inputPath = Paths.get(inputFile);		
 		//Path outputPath = Paths.get(outputFile);
 		List<String> puzzle = readContent(inputPath);
 		
