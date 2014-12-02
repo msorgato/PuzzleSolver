@@ -6,10 +6,10 @@ import java.util.List;
 import puzzlesolver.piece.Piece;
 
 public class SequentialSort implements ISort {
-
+	
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
 		List<Piece> firstLine = new ArrayList<Piece>();
-		int puzzleSize = puzzle.size();
+		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
 		for(int i = 0; i < puzzle.size(); i++) {
 			if(puzzle.get(i).getWest().equals("VUOTO") && puzzle.get(i).getNorth().equals("VUOTO")) {
 				firstLine.add(puzzle.remove(i));
@@ -27,6 +27,12 @@ public class SequentialSort implements ISort {
 			}
 			currentIndex++;
 		}
+		Piece[][] orderedPuzzle = new Piece[puzzleSize / firstLine.size()][firstLine.size()];	//QUESTA RIGA POTREBBE ESSERE UNA PUTTANATA INCREDIBILE.
+		
+		/*
+		 * da qua in poi, si ordina ogni riga sequenzialmente e si prende il sud di ogni primo elemento
+		 * come elemento iniziale della riga successiva. And so on.
+		 */
 		
 		//STAMPA DI PROVA
 		for(int i = 0; i < firstLine.size(); i++)
@@ -35,5 +41,6 @@ public class SequentialSort implements ISort {
 		return null;
 		
 	}
+	
 
 }
