@@ -17,6 +17,12 @@ public class Piece {
 	//Costruttore con stringa unica, già controllata dal Parser
 	public Piece(String fields) {
 		String[] splitted = fields.split("\t");
+		for(int i = 0; i < splitted.length; i++) {
+			if(i == 1 && splitted[i] == " ")			
+				continue;
+			splitted[i] = splitted[i].trim();			
+		}
+		
 		id = splitted[0];
 		character = splitted[1].toCharArray()[0];
 		n_id = splitted[2];

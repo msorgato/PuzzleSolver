@@ -12,7 +12,6 @@ public class SequentialSort implements ISort {
 		int puzzleSize = puzzle.size();
 		for(int i = 0; i < puzzle.size(); i++) {
 			if(puzzle.get(i).getWest().equals("VUOTO") && puzzle.get(i).getNorth().equals("VUOTO")) {
-				System.out.println(puzzle.get(i).getCharacter());
 				firstLine.add(puzzle.remove(i));
 				break;
 			}
@@ -22,6 +21,7 @@ public class SequentialSort implements ISort {
 		while(!currentPiece.getEast().equals("VUOTO")) {
 			if(puzzle.get(currentIndex).getId().equals(currentPiece.getEast())) {
 				currentPiece = puzzle.remove(currentIndex);
+				firstLine.add(currentPiece);
 				currentIndex = 0;
 				continue;
 			}

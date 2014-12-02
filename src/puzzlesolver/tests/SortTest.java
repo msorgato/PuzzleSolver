@@ -15,11 +15,10 @@ public class SortTest {
 				o = new Piece("o1 	o 	VUOTO 	v1 	VUOTO 	r1"), 
 				v = new Piece("v1 	v	VUOTO 	a1 	VUOTO 	o1"), 
 				a = new Piece("a1 	a	VUOTO 	VUOTO 	VUOTO 	v1");
-		System.out.println(p.getCharacter());
-		/*List<Piece> puzzle = new ArrayList<Piece>();
-		puzzle.add(p); puzzle.add(r); puzzle.add(o); puzzle.add(v); puzzle.add(a);
+		List<Piece> puzzle = new ArrayList<Piece>();
+		puzzle.add(r); puzzle.add(p); puzzle.add(v); puzzle.add(o); puzzle.add(a);
 		ISort sort = new SequentialSort();
-		sort.sortPuzzle(puzzle);*/
+		sort.sortPuzzle(puzzle);
 
 	}
 
