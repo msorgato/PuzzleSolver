@@ -14,6 +14,17 @@ public class Piece {
 		this.id = id; this.character = character; this.n_id = n_id; this.e_id = e_id; this.s_id = s_id; this.w_id = w_id;
 	}
 	
+	//Costruttore con stringa unica, già controllata dal Parser
+	public Piece(String fields) {
+		String[] splitted = fields.split("\t");
+		id = splitted[0];
+		character = splitted[1].toCharArray()[0];
+		n_id = splitted[2];
+		e_id = splitted[3];
+		s_id = splitted[4];
+		w_id = splitted[5];
+	}
+	
 	//Getter per ogni campo dato
 	public String getId() {	return id; }
 	public char getCharacter() { return character; }

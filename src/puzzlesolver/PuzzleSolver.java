@@ -13,6 +13,7 @@ import java.util.List;
 
 import puzzlesolver.parser.IParser;
 import puzzlesolver.parser.PuzzleParser;
+import puzzlesolver.piece.Piece;
 
 
 public class PuzzleSolver {
@@ -50,12 +51,20 @@ public class PuzzleSolver {
 		Path inputPath = Paths.get(inputFile);		//PROVALO DA RIGA DI COMANDO
 		//Path outputPath = Paths.get(outputFile);
 		List<String> puzzle = readContent(inputPath);
-		if(puzzle != null)
-			System.out.println("YATTA!");
-		System.out.println(puzzle.get(0));
-		System.out.println(puzzle.get(1));
-		System.out.println(puzzle.get(2));
-		System.out.println(puzzle.get(3));
+		
+		List<Piece> pieces = new ArrayList<Piece>();
+		if(puzzle != null) 
+			for(int i = 0; i < puzzle.size(); i++)
+				pieces.add(new Piece(puzzle.get(i)));
+		else {
+			System.out.println("Sono stati riscontrati dei problemi nella lettura del File.");
+			return;
+		}
+		
+		
+		System.out.println(pieces.get(1).getEast());
+			
+				
 		//writeContent(outputPath, inputContent);
 
 	}
