@@ -7,26 +7,38 @@ import puzzlesolver.piece.Piece;
 
 public class SequentialSort implements ISort {
 	
-	public Piece[][] sortPuzzle(List<Piece> puzzle) {
-		List<Piece> firstLine = new ArrayList<Piece>();
-		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
-		for(int i = 0; i < puzzle.size(); i++) {
-			if(puzzle.get(i).getWest().equals("VUOTO") && puzzle.get(i).getNorth().equals("VUOTO")) {
-				firstLine.add(puzzle.remove(i));
-				break;
-			}
-		}
-		Piece currentPiece = firstLine.get(0);
+	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
+		Piece currentPiece = firstPiece;
 		int currentIndex = 0;
-		while(!currentPiece.getEast().equals("VUOTO")) {
+		List<Piece> puzzleLine = new ArrayList<Piece>();
+		puzzleLine.add(firstPiece);
+		while(!currentPiece.getEast().equals("VUOTO") && puzzle.size() != 0) {
 			if(puzzle.get(currentIndex).getId().equals(currentPiece.getEast())) {
 				currentPiece = puzzle.remove(currentIndex);
-				firstLine.add(currentPiece);
+				puzzleLine.add(currentPiece);
 				currentIndex = 0;
 				continue;
 			}
 			currentIndex++;
 		}
+		if(!puzzleLine.get(puzzleLine.size() - 1).getEast().equals("VUOTO"))		//vuol dire che il puzzle è finito prima di completare la riga
+			return null;
+		return puzzleLine;
+	}
+	
+	public Piece[][] sortPuzzle(List<Piece> puzzle) {
+		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
+		Piece upperLeft = null;
+		for(int i = 0; i < puzzle.size(); i++) {
+			if(puzzle.get(i).getWest().equals("VUOTO") && puzzle.get(i).getNorth().equals("VUOTO")) {
+				upperLeft = puzzle.remove(i);
+				break;
+			}
+		}
+		if(upperLeft == null)			//non e' stato trovato l'angolo in alto a sinistra -> manca (almeno) un pezzo
+			return null;	
+		List<Piece> firstLine = this.sortLine(upperLeft, puzzle);
+		
 		Piece[][] orderedPuzzle = new Piece[puzzleSize / firstLine.size()][firstLine.size()];	//QUESTA RIGA POTREBBE ESSERE UNA PUTTANATA INCREDIBILE.
 		
 		/*
