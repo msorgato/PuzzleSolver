@@ -14,6 +14,7 @@ public class SequentialSort implements ISort {
 		return null;											//se non trovo il pezzo, ritorno null
 	}
 	
+	
 	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
 		Piece currentPiece = firstPiece;
 		int currentIndex = 0;
@@ -32,6 +33,7 @@ public class SequentialSort implements ISort {
 			return null;
 		return puzzleLine;
 	}
+	
 	
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
 		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
@@ -74,9 +76,7 @@ public class SequentialSort implements ISort {
 		
 		
 		
-		//STAMPA DI PROVA
-		for(int i = 0; i < firstLine.size(); i++)
-			System.out.println(firstLine.get(i).getCharacter());
+		
 		
 		return null;
 		
