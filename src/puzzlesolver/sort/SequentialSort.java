@@ -21,7 +21,7 @@ public class SequentialSort implements ISort {
 			}
 			currentIndex++;
 		}
-		if(!puzzleLine.get(puzzleLine.size() - 1).getEast().equals("VUOTO"))		//vuol dire che il puzzle è finito prima di completare la riga
+		if(!puzzleLine.get(puzzleLine.size() - 1).getEast().equals("VUOTO"))		//vuol dire che il puzzle e' finito prima di completare la riga
 			return null;
 		return puzzleLine;
 	}
@@ -37,7 +37,10 @@ public class SequentialSort implements ISort {
 		}
 		if(upperLeft == null)			//non e' stato trovato l'angolo in alto a sinistra -> manca (almeno) un pezzo
 			return null;	
+		
 		List<Piece> firstLine = this.sortLine(upperLeft, puzzle);
+		if(firstLine == null)	//mancano pezzi nella prima riga, i suppose
+			return null;
 		
 		Piece[][] orderedPuzzle = new Piece[puzzleSize / firstLine.size()][firstLine.size()];	//QUESTA RIGA POTREBBE ESSERE UNA PUTTANATA INCREDIBILE.
 		
@@ -45,6 +48,9 @@ public class SequentialSort implements ISort {
 		 * da qua in poi, si ordina ogni riga sequenzialmente e si prende il sud di ogni primo elemento
 		 * come elemento iniziale della riga successiva. And so on.
 		 */
+		
+		
+		
 		
 		//STAMPA DI PROVA
 		for(int i = 0; i < firstLine.size(); i++)
