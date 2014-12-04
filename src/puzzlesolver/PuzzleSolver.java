@@ -14,6 +14,8 @@ import java.util.List;
 import puzzlesolver.parser.IParser;
 import puzzlesolver.parser.PuzzleParser;
 import puzzlesolver.piece.Piece;
+import puzzlesolver.sort.ISort;
+import puzzlesolver.sort.SequentialSort;
 
 
 public class PuzzleSolver {
@@ -47,25 +49,40 @@ public class PuzzleSolver {
 		}
 	}
 	
+	private static String puzzleStringBuilder(Piece[][] puzzle) {
+		//metodo che costruisce l'output un'unica stringa da passar al writeContent
+		return null;
+	}
+	
 	public static void main(String[] args) {
 		String inputFile = args[0];
-		//String outputFile = args[1];
+		String outputFile = args[1];
 		
 		Path inputPath = Paths.get(inputFile);		
-		//Path outputPath = Paths.get(outputFile);
-		List<String> puzzle = readContent(inputPath);
+		Path outputPath = Paths.get(outputFile);
+		List<String> input = readContent(inputPath);
 		
 		List<Piece> pieces = new ArrayList<Piece>();
-		if(puzzle != null) 
-			for(int i = 0; i < puzzle.size(); i++)
-				pieces.add(new Piece(puzzle.get(i)));
+		if(input != null) 
+			for(int i = 0; i < input.size(); i++)
+				pieces.add(new Piece(input.get(i)));
 		else {
 			System.out.println("Sono stati riscontrati dei problemi nella lettura del File.");
 			return;
 		}
 		
+		ISort sorter = new SequentialSort();
+		Piece[][] puzzle = sorter.sortPuzzle(pieces);
+		if(puzzle == null) {
+			System.out.println("L'algoritmo di ordinamento ha presentato dei problemi");
+			return;
+		}
 		
-		System.out.println(pieces.get(1).getEast());
+		
+		
+		
+		
+		
 			
 				
 		//writeContent(outputPath, inputContent);

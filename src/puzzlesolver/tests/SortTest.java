@@ -21,7 +21,7 @@ public class SortTest {
 				v1 = new Piece("v2 	v	v1 	a2 	VUOTO 	o2"), 
 				a1 = new Piece("a2 	a	a1 	VUOTO 	VUOTO 	v2");
 		List<Piece> puzzle = new ArrayList<Piece>();
-		puzzle.add(r); puzzle.add(p); puzzle.add(v); puzzle.add(o); puzzle.add(a);
+		puzzle.add(a); puzzle.add(v); puzzle.add(o); puzzle.add(r); puzzle.add(p);
 		puzzle.add(r1); puzzle.add(p1); puzzle.add(v1); puzzle.add(o1); puzzle.add(a1);
 		ISort sort = new SequentialSort();
 		sort.sortPuzzle(puzzle);
