@@ -50,16 +50,36 @@ public class PuzzleSolver {
 	}
 	
 	private static String puzzleStringBuilder(Piece[][] puzzle) {
-		//metodo che costruisce l'output un'unica stringa da passar al writeContent
-		return null;
+		StringBuilder builder = new StringBuilder();
+		
+		for(int i = 0; i < puzzle.length; i++)
+			for(int j = 0; j < puzzle[i].length; j++)
+				builder.append(puzzle[i][j].getCharacter());	//scrive su un'unica riga i caratteri dei pezzi del puzzle
+		
+		builder.append("\n\n");									//vado a capo e lascio una riga vuota
+		
+		for(int i = 0; i < puzzle.length; i++) {				//cicli di costruzione della forma tabellare
+			for(int j = 0; j < puzzle[i].length; j++) {
+				builder.append(puzzle[i][j].getCharacter());
+				if(!(j == (puzzle[i].length - 1)))
+					builder.append("\t");
+			}
+			builder.append("\n");
+		}
+		
+		builder.append("\n");									//riga vuota
+		
+		builder.append("Il puzzle e' formato da " + puzzle.length + " righe e " + puzzle[0].length + " colonne");
+		
+		return builder.toString();
 	}
 	
 	public static void main(String[] args) {
 		String inputFile = args[0];
-		String outputFile = args[1];
+		//String outputFile = args[1];
 		
 		Path inputPath = Paths.get(inputFile);		
-		Path outputPath = Paths.get(outputFile);
+		//Path outputPath = Paths.get(outputFile);
 		List<String> input = readContent(inputPath);
 		
 		List<Piece> pieces = new ArrayList<Piece>();
@@ -79,7 +99,7 @@ public class PuzzleSolver {
 		}
 		
 		
-		
+		System.out.println(puzzleStringBuilder(puzzle));
 		
 		
 		

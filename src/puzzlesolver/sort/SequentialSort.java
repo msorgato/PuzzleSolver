@@ -76,12 +76,7 @@ public class SequentialSort implements ISort {
 			System.out.println("\n");
 		}
 		
-		
-		
-		
-		
-		return null;
-		
+		return orderedPuzzle;
 	}
 	
 
