@@ -37,6 +37,7 @@ public class PuzzleSolver {
 			}
 		} catch (IOException e) {
 			System.err.println(e);
+			return null;
 		}
 		return content;
 	}
@@ -46,6 +47,7 @@ public class PuzzleSolver {
 			writer.write(content);
 		} catch (IOException e) {
 			System.err.println(e);
+			System.out.println("Non e' stato possibile scrivere sul file di output.");
 		}
 	}
 	
@@ -76,10 +78,26 @@ public class PuzzleSolver {
 	}
 	
 	public static void main(String[] args) {
+		if(args.length == 0) {
+			System.out.println("Mancano entrambi gli argomenti di invocazione.");
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver path\\input path\\output");
+			return;
+		}
+		if(args.length == 1) {
+			System.out.println("Manca uno dei due argomenti di invocazione.");
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver path\\input path\\output");
+			return;
+		}
+		if(args.length > 2) {
+			System.out.println("Sono presenti troppi argomenti di invocazione.");
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver path\\input path\\output");
+			return;
+		}
+				
 		String inputFile = args[0];
 		String outputFile = args[1];
 		
-		Path inputPath = Paths.get(inputFile);		
+		Path inputPath = Paths.get(inputFile);
 		Path outputPath = Paths.get(outputFile);
 		
 		List<String> input = readContent(inputPath);
