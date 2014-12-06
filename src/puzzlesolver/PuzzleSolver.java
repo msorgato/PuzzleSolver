@@ -56,7 +56,8 @@ public class PuzzleSolver {
 			for(int j = 0; j < puzzle[i].length; j++)
 				builder.append(puzzle[i][j].getCharacter());	//scrive su un'unica riga i caratteri dei pezzi del puzzle
 		
-		builder.append("\n\n");									//vado a capo e lascio una riga vuota
+		builder.append(System.getProperty("line.separator"));	//vado a capo e lascio una riga vuota
+		builder.append(System.getProperty("line.separator"));
 		
 		for(int i = 0; i < puzzle.length; i++) {				//cicli di costruzione della forma tabellare
 			for(int j = 0; j < puzzle[i].length; j++) {
@@ -64,10 +65,10 @@ public class PuzzleSolver {
 				if(!(j == (puzzle[i].length - 1)))
 					builder.append("\t");
 			}
-			builder.append("\n");
+			builder.append(System.getProperty("line.separator"));
 		}
 		
-		builder.append("\n");									//riga vuota
+		builder.append(System.getProperty("line.separator"));	//riga vuota
 		
 		builder.append("Il puzzle e' formato da " + puzzle.length + " righe e " + puzzle[0].length + " colonne");
 		
@@ -76,10 +77,11 @@ public class PuzzleSolver {
 	
 	public static void main(String[] args) {
 		String inputFile = args[0];
-		//String outputFile = args[1];
+		String outputFile = args[1];
 		
 		Path inputPath = Paths.get(inputFile);		
-		//Path outputPath = Paths.get(outputFile);
+		Path outputPath = Paths.get(outputFile);
+		
 		List<String> input = readContent(inputPath);
 		
 		List<Piece> pieces = new ArrayList<Piece>();
@@ -97,15 +99,10 @@ public class PuzzleSolver {
 			System.out.println("L'algoritmo di ordinamento ha presentato dei problemi");
 			return;
 		}
-		
-		
-		System.out.println(puzzleStringBuilder(puzzle));
-		
-		
-		
-			
 				
-		//writeContent(outputPath, inputContent);
+		String output = puzzleStringBuilder(puzzle);
+		writeContent(outputPath, output);
+		System.out.println(output);
 
 	}
 
