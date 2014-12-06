@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -97,8 +98,21 @@ public class PuzzleSolver {
 		String inputFile = args[0];
 		String outputFile = args[1];
 		
-		Path inputPath = Paths.get(inputFile);
-		Path outputPath = Paths.get(outputFile);
+		Path inputPath = null;
+		try {
+			inputPath = Paths.get(inputFile);
+		} catch(InvalidPathException e) {
+			System.out.println("Il percorso del file di input non e' corretto.");
+			return;
+		}
+		
+		Path outputPath = null;
+		try {
+			outputPath = Paths.get(outputFile);
+		} catch(InvalidPathException e) {
+			System.out.println("Il percorso del file di output non e' corretto.");
+			return;
+		}
 		
 		List<String> input = readContent(inputPath);
 		
