@@ -134,7 +134,7 @@ public class PuzzleSolver {
 				
 		String output = puzzleStringBuilder(puzzle);
 		writeContent(outputPath, output);
-		System.out.println(output);
+		System.out.println(output);				//da eliminare successivamente
 
 	}
 
