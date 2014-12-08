@@ -18,7 +18,7 @@ public class ParserTest {
 		IParser parser = new PuzzleParser();
 		String input = "U1 \t c \t G1 \t J5 \t U8 \t UH";
 		System.out.println(input);
-		/*String false_input = "U1 \t ml \t G1 \t J5 \t U8 \t UH";
+		/*
 		String[] puzzle = {"U1 \t c \t G1 \t J5 \t U8 \t UH", "U1 \t c \t G1 \t J5 \t U8 \t UH", "U1 \t c \t G1 \t J5 \t U8 \t UH", 
 				"U1 \t \n \t G1 \t J5 \t U8 \t UH", "U1 \t ml \t G1 \t J5 \t U8 \t UH"};
 		
@@ -29,8 +29,7 @@ public class ParserTest {
 		
 		System.out.println("-----------------------------------------------------------------");
 		
-		String string_with_tab = "U1 \t \t \t G1 \t J5 \t U8 \t UH";
-		System.out.println(parser.parseLine(string_with_tab));*/
+		*/
 		
 		System.out.println("-----------------------------------------------------------------");
 		System.out.println("    /******Prova per la lettura ed il parsing da file******/");
