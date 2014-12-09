@@ -84,7 +84,7 @@ public class SequentialSort implements ISort {
 			System.out.println("\n");
 		}
 		
-		if(compareSize(puzzleSize, orderedPuzzle))
+		if(compareSize(puzzleSize, orderedPuzzle))		//DA LEVARE ASSOLUTAMENTE
 			return orderedPuzzle;
 		return null;
 	}
