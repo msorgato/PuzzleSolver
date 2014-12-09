@@ -1,13 +1,13 @@
 package puzzlesolver.piece;
 
 public class Piece {
-	private String id;
-	private char character;
+	private final String id;
+	private final char character;
 	
-	private String n_id;
-	private String e_id;
-	private String s_id;
-	private String w_id;
+	private final String n_id;
+	private final String e_id;
+	private final String s_id;
+	private final String w_id;
 	
 	//Costruttore completo
 	public Piece(String id, char character, String n_id, String e_id, String s_id, String w_id) {	
