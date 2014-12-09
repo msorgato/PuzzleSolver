@@ -14,7 +14,7 @@ public class Piece {
 		this.id = id; this.character = character; this.n_id = n_id; this.e_id = e_id; this.s_id = s_id; this.w_id = w_id;
 	}
 	
-	//Costruttore con stringa unica, già controllata dal Parser
+	//Costruttore con stringa unica, gia' controllata dal Parser
 	public Piece(String fields) {
 		String[] splitted = fields.split("\t");
 		for(int i = 0; i < splitted.length; i++) {
