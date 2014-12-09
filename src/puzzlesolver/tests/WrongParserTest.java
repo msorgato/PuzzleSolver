@@ -11,7 +11,7 @@ public class WrongParserTest {
 		String wrong_input = "U1 \t ml \t G1 \t J5 \t U8 \t UH";		
 		/*
 		 * questo candidato pezzo del puzzle presenta due caratteri al posto di uno,
-		 * quindi non deve essere considerato un pezzo valido dal parser
+		 * quindi non deve essere considerato un pezzo valido dal parser sintattico.
 		 */
 		
 		System.out.println("Risultato del parsing della stringa \"U1 \t ml \t G1 \t J5 \t U8 \t UH\": " + parser.parseLine(wrong_input));
@@ -32,10 +32,20 @@ public class WrongParserTest {
 		String string_with_tab = "U1 \t \t \t G1 \t J5 \t U8 \t UH";
 		/*
 		 * Prova con il carattere di tabulazione usato al posto del carattere contenuto in un pezzo, non accettabile come
-		 * carattere 
+		 * carattere.
 		 */
 		
 		System.out.println("Risultato del parsing della stringa \"U1 \t \t \t G1 \t J5 \t U8 \t UH\": " + parser.parseLine(string_with_tab));
+		
+		System.out.println("--------------------------------------------------------------------------------------------");
+		
+		String string_with_newline = "U1 \t \n \t G1 \t J5 \t U8 \t UH";
+		/*
+		 * Prova con il carattere di caporiga usato al posto del carattere contenuto in un pezzo, non accettabile come
+		 * carattere.
+		 */
+		
+		System.out.println("Risultato del parsing della stringa \"U1 \t \n \t G1 \t J5 \t U8 \t UH\": " + parser.parseLine(string_with_newline));
 	}
 
 }
