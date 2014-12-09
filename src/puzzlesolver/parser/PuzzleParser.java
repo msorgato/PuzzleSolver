@@ -21,14 +21,14 @@ public class PuzzleParser implements IParser {
 			return false;							//il numero di elementi della Stringa dev'essere obbligatoriamente 6 (id, char, id_n, id_e, id_s, id_w)
 		if(!inputNotEmpty(parts))
 			return false;							//nessun campo dell'input puo' essere vuoto
-		if(parts[1].length() > 1 || parts[1].equals("\n"))
+		if(parts[1].length() > 1 || parts[1].equals(System.getProperty("line.separator")))
 			return false;							//il carattere del pezzo non puo' essere piu' lungo di una lettera e non puo' essere il carattere caporiga
 		return true;
 	}
 	
 	/*
 	 * Questo metodo si potrebbe ampliare controllando che non esistano ID uguali nella stessa posizione cardinale
-	 * di un dato pezzo. Così poi l'algoritmo di ordinamento non si sminchia.
+	 * di un dato pezzo. Cosi' poi l'algoritmo di ordinamento non si sminchia.
 	 */
 	public int parsePuzzle(String[] puzzle) {
 		for(int i = 0; i < puzzle.length; i++) 
