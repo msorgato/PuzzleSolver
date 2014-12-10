@@ -125,6 +125,10 @@ public class PuzzleSolver {
 			return;
 		}
 		
+		IParser parser = new PuzzleParser();
+		if(parser.idCheck(pieces) != -1)
+			return;
+		
 		ISort sorter = new SequentialSort();
 		Piece[][] puzzle = sorter.sortPuzzle(pieces);
 		if(puzzle == null) {

@@ -1,5 +1,9 @@
 package puzzlesolver.parser;
 
+import java.util.List;
+
+import puzzlesolver.piece.Piece;
+
 public class PuzzleParser implements IParser {
 	
 	//metodo statico utilizzato per controllare che tutti i campi del pezzo in input non siano vuoti
@@ -8,6 +12,18 @@ public class PuzzleParser implements IParser {
 			if(input[i].length() == 0)
 				return false;
 		return true;
+	}
+	
+	public int idCheck(List<Piece> puzzle) {
+		for(int i = 0; i < puzzle.size(); i++)
+			for(int j = i + 1; j < puzzle.size(); j++)
+				if(puzzle.get(i).getId().equals(puzzle.get(j).getId()) || puzzle.get(i).getNorth().equals(puzzle.get(j).getNorth()) ||
+						puzzle.get(i).getEast().equals(puzzle.get(j).getEast()) || puzzle.get(i).getSouth().equals(puzzle.get(j).getSouth()) ||
+						puzzle.get(i).getWest().equals(puzzle.get(j).getWest())) {
+					System.out.println("Sono stati riscontrati dei problemi tra gli ID dei pezzi alla riga " + i + " e " + j);
+					return i;
+				}
+		return -1;
 	}
 	
 	public boolean parseLine(String line) {
