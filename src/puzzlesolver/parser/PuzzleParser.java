@@ -20,7 +20,7 @@ public class PuzzleParser implements IParser {
 				if(puzzle.get(i).getId().equals(puzzle.get(j).getId()) || puzzle.get(i).getNorth().equals(puzzle.get(j).getNorth()) ||
 						puzzle.get(i).getEast().equals(puzzle.get(j).getEast()) || puzzle.get(i).getSouth().equals(puzzle.get(j).getSouth()) ||
 						puzzle.get(i).getWest().equals(puzzle.get(j).getWest())) {
-					System.out.println("Sono stati riscontrati dei problemi tra gli ID dei pezzi alla riga " + i + " e " + j);
+					System.out.println("Sono stati riscontrati dei problemi tra gli ID dei pezzi alla riga " + (i + 1) + " e " + (j + 1));
 					return i;
 				}
 		return -1;

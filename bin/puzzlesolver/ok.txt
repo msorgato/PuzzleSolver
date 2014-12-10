@@ -1,0 +1,10 @@
+v2 	v	v1 	a2 	VUOTO 	o2 
+o1 	o 	VUOTO 	v1 	o2 	r1 
+v1 	v	VUOTO 	a1 	v2 	o1
+o2 	o 	o1 	v2 	VUOTO 	r2  
+a1 	a	VUOTO 	VUOTO 	a2 	v1
+p2 	 p 	 p1 	 r2 	 VUOTO 	 VUOTO 
+r2	r	r1 	o2 	VUOTO 	p2
+a2 	a	a1 	VUOTO 	VUOTO 	v2
+r1	r	VUOTO 	o1 	r2 	p1
+p1 	 p 	 VUOTO 	 r1 	 p2 	 VUOTO
