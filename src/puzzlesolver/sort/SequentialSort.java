@@ -77,13 +77,6 @@ public class SequentialSort implements ISort {
 				orderedPuzzle[i][j] = rowPieces.get(j);
 		}
 		
-		for(int i = 0; i < orderedPuzzle.length; i++) {
-			for(int j = 0; j < orderedPuzzle[i].length; j++) {
-				System.out.print(orderedPuzzle[i][j].getCharacter() + "\t");
-			}
-			System.out.println("\n");
-		}
-		
 		if(compareSize(puzzleSize, orderedPuzzle))		
 			return orderedPuzzle;
 		return null;
