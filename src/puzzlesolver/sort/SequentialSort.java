@@ -84,5 +84,4 @@ public class SequentialSort implements ISort {
 		return null;
 	}
 	
-
 }

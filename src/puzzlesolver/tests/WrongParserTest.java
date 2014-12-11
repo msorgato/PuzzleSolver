@@ -22,7 +22,7 @@ public class WrongParserTest {
 				"U1 \t \n \t G1 \t J5 \t U8 \t UH", "U1 \t ml \t G1 \t J5 \t U8 \t UH"};
 		/*
 		 * questo insieme di stringhe rappresentanti la sintassi di un puzzle, presenta un errore nell'ultimo pezzo, dove 
-		 * il carattere è composto da piu' di un singolo carattere
+		 * il carattere e' composto da piu' di un singolo carattere
 		 */
 		
 		System.out.println("Risultato del parsing del puzzle errato: " + parser.parsePuzzle(wrong_puzzle));
