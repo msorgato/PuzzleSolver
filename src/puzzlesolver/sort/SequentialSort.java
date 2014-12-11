@@ -77,8 +77,10 @@ public class SequentialSort implements ISort {
 				orderedPuzzle[i][j] = rowPieces.get(j);
 		}
 		
-		if(compareSize(puzzleSize, orderedPuzzle))		
+		if(compareSize(puzzleSize, orderedPuzzle))
 			return orderedPuzzle;
+		
+		System.out.println("La dimensione del puzzle dopo l'ordinamento e' minore di quella di partenza.");
 		return null;
 	}
 	
