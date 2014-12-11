@@ -6,6 +6,7 @@ import puzzlesolver.piece.Piece;
 
 public interface IParser {
 	
+	//controllo su ogni campo ID dei pezzi contenuti del puzzle
 	public int idCheck(List<Piece> puzzle);
 	
 	//parser che stabilisce se una stringa sia lecita o meno

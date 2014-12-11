@@ -1,13 +1,13 @@
 package puzzlesolver.piece;
 
 public class Piece {
-	private final String id;
-	private final char character;
+	private final String id; 			//ID del pezzo
+	private final char character;		//carattere contenuto
 	
-	private final String n_id;
-	private final String e_id;
-	private final String s_id;
-	private final String w_id;
+	private final String n_id;			//\
+	private final String e_id;			//- ID
+	private final String s_id;			//- CARDINALI
+	private final String w_id;			///
 	
 	//Costruttore completo
 	public Piece(String id, char character, String n_id, String e_id, String s_id, String w_id) {	
@@ -39,5 +39,55 @@ public class Piece {
 	public String getEast()  { return e_id; }
 	public String getSouth() { return s_id;	}
 	public String getWest()  { return w_id;	}
+	
+	//equals per ogni id
+	public boolean equalsId(Piece other) {
+		if(this.id.equals(other.id))
+			return true;
+		return false;
+	}
+	
+	public boolean equalsNorth(Piece other) {
+		if(this.n_id.equals(other.n_id))
+			return true;
+		return false;
+	}
+	public boolean equalsEast(Piece other) {
+		if(this.e_id.equals(other.e_id))
+			return true;
+		return false;
+	}
+	public boolean equalsSouth(Piece other) {
+		if(this.s_id.equals(other.s_id))
+			return true;
+		return false;
+	}
+	public boolean equalsWest(Piece other) {
+		if(this.w_id.equals(other.w_id))
+			return true;
+		return false;
+	}
+	
+	//boolean che ritornano true se l'ID adiacente nella posizione cardinale e' "VUOTO"
+	public boolean borderNorth() {
+		if(n_id.equals("VUOTO"))
+			return true;
+		return false;
+	}
+	public boolean borderEast() {
+		if(e_id.equals("VUOTO"))
+			return true;
+		return false;
+	}
+	public boolean borderSouth() {
+		if(s_id.equals("VUOTO"))
+			return true;
+		return false;
+	}
+	public boolean borderWest() {
+		if(w_id.equals("VUOTO"))
+			return true;
+		return false;
+	}
 	
 }

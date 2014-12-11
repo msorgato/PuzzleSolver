@@ -42,16 +42,20 @@ public class PuzzleSolver {
 		}
 		return content;
 	}
-		
+	
 	private static void writeContent(Path file, String content) {
-		try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {
-			writer.write(content);
-		} catch (IOException e) {
-			System.err.println(e);
+		try (BufferedWriter writer = Files.newBufferedWriter(file, charset)) {		//cerca di scrivere nel file di Path "file",
+			writer.write(content);													//il contenuto della stringa "content",
+		} catch (IOException e) {													//altrimenti gestisco localmente l'eccezione
+		System.err.println(e);														//ed il programma termina con un messaggio di errore
 			System.out.println("Non e' stato possibile scrivere sul file di output.");
 		}
 	}
 	
+	/*
+	 * metodo privato statico che prepara un puzzle per la scrittura su file, creando un'unica stringa
+	 * per l'output
+	 */
 	private static String puzzleStringBuilder(Piece[][] puzzle) {
 		StringBuilder builder = new StringBuilder();
 		
@@ -142,4 +146,3 @@ public class PuzzleSolver {
 	}
 
 }
-

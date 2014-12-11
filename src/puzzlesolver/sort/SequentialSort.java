@@ -29,7 +29,7 @@ public class SequentialSort implements ISort {
 		int currentIndex = 0;
 		List<Piece> puzzleLine = new ArrayList<Piece>();
 		puzzleLine.add(firstPiece);
-		while(currentIndex < puzzle.size() && !currentPiece.getEast().equals("VUOTO")) {
+		while(currentIndex < puzzle.size() && !currentPiece.borderEast()) {
 			if(puzzle.get(currentIndex).getId().equals(currentPiece.getEast())) {
 				currentPiece = puzzle.remove(currentIndex);
 				puzzleLine.add(currentPiece);
@@ -38,7 +38,7 @@ public class SequentialSort implements ISort {
 			}
 			currentIndex++;
 		}
-		if(!puzzleLine.get(puzzleLine.size() - 1).getEast().equals("VUOTO"))		//vuol dire che il puzzle e' finito prima di completare la riga
+		if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())		//vuol dire che il puzzle e' finito prima di completare la riga
 			return null;
 		return puzzleLine;
 	}
@@ -48,7 +48,7 @@ public class SequentialSort implements ISort {
 		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
 		Piece upperLeft = null;
 		for(int i = 0; i < puzzle.size(); i++) {
-			if(puzzle.get(i).getWest().equals("VUOTO") && puzzle.get(i).getNorth().equals("VUOTO")) {
+			if(puzzle.get(i).borderWest() && puzzle.get(i).borderNorth()) {
 				upperLeft = puzzle.remove(i);
 				break;
 			}
@@ -84,7 +84,7 @@ public class SequentialSort implements ISort {
 			System.out.println("\n");
 		}
 		
-		if(compareSize(puzzleSize, orderedPuzzle))		//DA LEVARE ASSOLUTAMENTE
+		if(compareSize(puzzleSize, orderedPuzzle))		
 			return orderedPuzzle;
 		return null;
 	}

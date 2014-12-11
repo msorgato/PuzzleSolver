@@ -14,15 +14,31 @@ public class PuzzleParser implements IParser {
 		return true;
 	}
 	
+	//metodo utilizzato per stabilire se ci sia una corrispondenza tra due ID nella stessa posizione cardinale o come ID del pezzo stesso
 	public int idCheck(List<Piece> puzzle) {
 		for(int i = 0; i < puzzle.size(); i++)
-			for(int j = i + 1; j < puzzle.size(); j++)
-				if(puzzle.get(i).getId().equals(puzzle.get(j).getId()) || puzzle.get(i).getNorth().equals(puzzle.get(j).getNorth()) ||
-						puzzle.get(i).getEast().equals(puzzle.get(j).getEast()) || puzzle.get(i).getSouth().equals(puzzle.get(j).getSouth()) ||
-						puzzle.get(i).getWest().equals(puzzle.get(j).getWest())) {
-					System.out.println("Sono stati riscontrati dei problemi tra gli ID dei pezzi alla riga " + (i + 1) + " e " + (j + 1));
+			for(int j = i + 1; j < puzzle.size(); j++) {
+				if(puzzle.get(i).equalsId(puzzle.get(j))) {
+					System.out.println("Gli ID dei pezzi alle righe " + (i + 1) + " e " + (j + 1) + " sono uguali");
 					return i;
 				}
+				if(puzzle.get(i).equalsNorth(puzzle.get(j)) && !(puzzle.get(i).borderNorth())) {
+					System.out.println("Gli ID NORD dei pezzi alle righe " + (i + 1) + " e " + (j + 1) + " sono uguali");
+					return i;
+				}
+				if(puzzle.get(i).equalsEast(puzzle.get(j)) && !(puzzle.get(i).borderEast())) {
+					System.out.println("Gli ID EST dei pezzi alle righe " + (i + 1) + " e " + (j + 1) + " sono uguali");
+					return i;
+				}
+				if(puzzle.get(i).equalsSouth(puzzle.get(j)) && !(puzzle.get(i).borderSouth())) {
+					System.out.println("Gli ID SUD dei pezzi alle righe " + (i + 1) + " e " + (j + 1) + " sono uguali");
+					return i;
+				}
+				if(puzzle.get(i).equalsWest(puzzle.get(j)) && !(puzzle.get(i).borderWest())) {
+					System.out.println("Gli ID OVEST dei pezzi alle righe " + (i + 1) + " e " + (j + 1) + " sono uguali");
+					return i;
+				}		
+			}
 		return -1;
 	}
 	
@@ -42,10 +58,6 @@ public class PuzzleParser implements IParser {
 		return true;
 	}
 	
-	/*
-	 * Questo metodo si potrebbe ampliare controllando che non esistano ID uguali nella stessa posizione cardinale
-	 * di un dato pezzo. Cosi' poi l'algoritmo di ordinamento non si sminchia.
-	 */
 	public int parsePuzzle(String[] puzzle) {
 		for(int i = 0; i < puzzle.length; i++) 
 			if(!parseLine(puzzle[i]))				//se il parsing della stringa corrente ritorna falso,  
