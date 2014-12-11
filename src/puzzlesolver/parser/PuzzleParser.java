@@ -45,9 +45,9 @@ public class PuzzleParser implements IParser {
 	public boolean parseLine(String line) {
 		String[] parts = line.split("\t");			//divido gli elementi della stringa splittando sul carattere di tabulazione
 		for(int i = 0; i < parts.length; i++) {
-			if(i == 1 && parts[i] == " ")			//se il carattere contenuto nel pezzo e' lo spazio, non eseguo il trim()
-				continue;
-			parts[i] = parts[i].trim();				//elimino eventuali spazi bianchi, ma non nel carattere del pezzo
+			parts[i] = parts[i].trim();				//elimino eventuali spazi bianchi
+			if(i == 1 && parts[i].length() == 0)	//se la lunghezza del carattere contenuto nel pezzo dopo il trim() e' 0,
+				parts[i] = " ";						//vuol dire che il carattere contenuto era uno spazio bianco, quindi lo reinserisco
 		}
 		if(parts.length != 6)
 			return false;							//il numero di elementi della Stringa dev'essere obbligatoriamente 6 (id, char, id_n, id_e, id_s, id_w)

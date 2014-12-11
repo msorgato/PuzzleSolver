@@ -18,9 +18,9 @@ public class Piece {
 	public Piece(String fields) {
 		String[] splitted = fields.split("\t");
 		for(int i = 0; i < splitted.length; i++) {
-			if(i == 1 && splitted[i] == " ")			
-				continue;
-			splitted[i] = splitted[i].trim();			
+			splitted[i] = splitted[i].trim();
+			if(i == 1 && splitted[i].length() == 0)
+				splitted[i] = " ";
 		}
 		
 		id = splitted[0];
