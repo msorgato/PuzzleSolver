@@ -8,6 +8,16 @@ public class WrongParserTest {
 	public static void main(String[] args) {
 		IParser parser = new PuzzleParser();
 		
+		String wrong_number = "1 \t 2 \t 3 \t 4 \t 5";
+		/*
+		 * questo pezzo presenta solamente 5 informazioni al posto di 6 (id, carattere, id cardinali), quindi
+		 * e' da considerarsi errato.
+		 */
+		
+		System.out.println("Risultato del parsing della stringa \"1 \t 2 \t 3 \t 4 \t 5\": " + parser.parseLine(wrong_number));
+		
+		System.out.println("--------------------------------------------------------------------------------------------");
+		
 		String wrong_input = "U1 \t ml \t G1 \t J5 \t U8 \t UH";		
 		/*
 		 * questo candidato pezzo del puzzle presenta due caratteri al posto di uno,
