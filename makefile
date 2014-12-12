@@ -3,7 +3,7 @@ JBIN = -d bin
 JCP = -cp bin
 .SUFFIXES: .java .class
 .java.class:
-	$(JC) $(JBIN) $(JFLAGS) $*.java
+	$(JC) $(JBIN) $(JCP) $*.java
 
 CLASSES = \
 	src/puzzlesolver/piece/Piece.java \
