@@ -7,6 +7,10 @@ import puzzlesolver.piece.Piece;
 
 public class SequentialSort implements ISort {
 	
+	/*
+	 * Metodo che ricerca il pezzo di id voluto, lo rimuove dal puzzle e lo ritorna.
+	 * Se il pezzo non viene trovato, viene ritornato null.
+	 */
 	private Piece removePiece(String id, List<Piece> puzzle) {
 		for(int i = 0; i < puzzle.size(); i++)
 			if(puzzle.get(i).getId().equals(id)) 
@@ -14,6 +18,11 @@ public class SequentialSort implements ISort {
 		return null;											//se non trovo il pezzo, ritorno null
 	}
 	
+	/*
+	 * Metodo di comparazione tra la dimensione originaria del puzzle e la dimensione
+	 * del puzzle ordinato. Viene calcolata la dimensione del puzzle ordinato e 
+	 * si ritorna il risultato.
+	 */
 	private static boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
 		int orderedSize = 0;
 		for(int i = 0; i < orderedPuzzle.length; i++)
