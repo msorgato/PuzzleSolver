@@ -18,20 +18,6 @@ public class SequentialSort implements ISort {
 		return null;											//se non trovo il pezzo, ritorno null
 	}
 	
-	/*
-	 * Metodo di comparazione tra la dimensione originaria del puzzle e la dimensione
-	 * del puzzle ordinato. Viene calcolata la dimensione del puzzle ordinato e 
-	 * si ritorna il risultato.
-	 */
-	private static boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
-		int orderedSize = 0;
-		for(int i = 0; i < orderedPuzzle.length; i++)
-			for(int j = 0; j < orderedPuzzle[i].length; j++)
-				orderedSize++;
-		
-		return orderedSize == originalSize;
-	}
-	
 	
 	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
 		Piece currentPiece = firstPiece;
@@ -86,7 +72,7 @@ public class SequentialSort implements ISort {
 				orderedPuzzle[i][j] = rowPieces.get(j);
 		}
 		
-		if(compareSize(puzzleSize, orderedPuzzle))
+		if(ISort.compareSize(puzzleSize, orderedPuzzle))
 			return orderedPuzzle;
 		
 		System.out.println("La dimensione del puzzle dopo l'ordinamento e' minore di quella di partenza.");
