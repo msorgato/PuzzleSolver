@@ -15,8 +15,12 @@ public class ConcurrentSort implements ISort {
 	
 	private class SortLineThread extends Thread {
 		private Piece firstRowPiece;
+		private int row;
 		
-		public SortLineThread(Piece firstRowPiece) { this.firstRowPiece = firstRowPiece; start(); }
+		public SortLineThread(Piece firstRowPiece, int row) { 
+			this.firstRowPiece = firstRowPiece; 
+			this.row = row;
+			start(); }
 		
 		public void run() {
 			
@@ -69,7 +73,18 @@ public class ConcurrentSort implements ISort {
 
 	@Override
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
-		// TODO Auto-generated method stub
+		/*
+		 * la condizione di attesa per il metodo e':
+		 * while(!(thread_started == thread_ended))
+		 * 		thread_ended.wait();
+		 * 
+		 * io pero' ci metterei anche una flag di controllo, in modo che 
+		 * l'attesa non rimanga piantata i eterno. La frag dovrebbe essere impostata
+		 * dai Thread stessi, che al riscontro di un problema, settano la flag a 
+		 * "CAZZI" e notificano il bastardo addormentato.  
+		 */
+		
+		
 		return null;
 	}
 
