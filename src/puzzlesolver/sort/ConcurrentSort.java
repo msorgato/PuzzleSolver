@@ -21,6 +21,14 @@ public class ConcurrentSort implements ISort {
 			
 		}
 	}
+	
+	//forse questa manco serve, basta inglobarla nel codice della run del SortLineThread
+	private void addEnded() {
+		synchronized(thread_ended) {
+			thread_ended++;
+			thread_ended.notify();
+		}
+	}
 
 	@Override
 	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
