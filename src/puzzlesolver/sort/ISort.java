@@ -20,6 +20,17 @@ public interface ISort {
 		return orderedSize == originalSize;
 	}
 	
+	static Piece getUpperLeft(List<Piece> puzzle) {
+		Piece upperLeft = null;
+		for(int i = 0; i < puzzle.size(); i++) {
+			if(puzzle.get(i).borderWest() && puzzle.get(i).borderNorth()) {
+				upperLeft = puzzle.get(i);
+				break;
+			}
+		}	
+		return upperLeft;
+	}
+	
 	List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle);
 	
 	Piece[][] sortPuzzle(List<Piece> puzzle);

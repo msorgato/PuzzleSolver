@@ -1,5 +1,6 @@
 package puzzlesolver.sort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import puzzlesolver.piece.Piece;
@@ -22,12 +23,42 @@ public class ConcurrentSort implements ISort {
 		}
 	}
 	
-	//forse questa manco serve, basta inglobarla nel codice della run del SortLineThread
+	//forse queste manco servono, basta inglobarle nel codice della run del SortLineThread
 	private void addEnded() {
 		synchronized(thread_ended) {
 			thread_ended++;
 			thread_ended.notify();
 		}
+	}
+	private int getEnded() {
+		synchronized(thread_ended) {
+			return thread_ended.intValue();
+		}
+	}
+	
+	private Piece[] getLeftBorder(List<Piece> puzzle) {
+		Piece upperLeft = ISort.getUpperLeft(puzzle);
+		if(upperLeft == null)
+			return null;
+		
+		List<Piece> firstColumn = new ArrayList();
+		firstColumn.add(upperLeft);
+		String nextPieceID = upperLeft.getSouth();
+		int currentIndex = 0;
+		
+		while(!nextPieceID.equals("VUOTO") && currentIndex < puzzle.size()) {
+			if(puzzle.get(currentIndex).getId().equals(nextPieceID)) {
+				firstColumn.add(puzzle.get(currentIndex));
+				currentIndex = 0;
+				nextPieceID = puzzle.get(currentIndex).getSouth();
+			} else
+				currentIndex++;
+		}
+		
+		if(!firstColumn.get(firstColumn.size() -1).getSouth().equals("VUOTO"))
+			return null;
+		
+		return firstColumn.toArray(new Piece[firstColumn.size()]);
 	}
 
 	@Override
