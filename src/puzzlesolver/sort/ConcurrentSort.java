@@ -49,9 +49,9 @@ public class ConcurrentSort implements ISort {
 		while(!nextPieceID.equals("VUOTO") && currentIndex < puzzle.size()) {
 			if(puzzle.get(currentIndex).getId().equals(nextPieceID)) {
 				firstColumn.add(puzzle.get(currentIndex));
-				currentIndex = 0;
 				nextPieceID = puzzle.get(currentIndex).getSouth();
-			} else
+				currentIndex = 0;
+			} else 
 				currentIndex++;
 		}
 		
