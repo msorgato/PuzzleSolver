@@ -52,15 +52,6 @@ public class ConcurrentSort implements ISort {
 		}
 	}
 	
-	//forse queste manco servono, basta inglobarle nel codice della run del SortLineThread
-	private void addEnded() {
-		
-	}
-	private int getEnded() {
-		synchronized(thread_ended) {
-			return thread_ended.intValue();
-		}
-	}
 	
 	private Piece[] getLeftBorder(List<Piece> puzzle) {
 		Piece upperLeft = ISort.getUpperLeft(puzzle);
