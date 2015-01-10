@@ -78,11 +78,6 @@ public class ConcurrentSort implements ISort {
 		return firstColumn.toArray(new Piece[firstColumn.size()]);
 	}
 
-	@Override
-	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
@@ -103,7 +98,9 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
-		orderedPuzzle = new ArrayList<Piece[]>(leftBorder.length);
+		orderedPuzzle = new ArrayList<Piece[]>(leftBorder.length);		//COSTRUTTORE INUTILE.
+		System.out.println("Grandezza di orderedPuzzle: " + orderedPuzzle.size());
+		System.out.println("Grandezza di leftBorder: " + leftBorder.length);
 		
 		for(int i = 0; i < leftBorder.length; i++) {
 			new SortLineThread(leftBorder[i], i, puzzle);
@@ -118,6 +115,7 @@ public class ConcurrentSort implements ISort {
 					e.printStackTrace();
 				}
 		}
+		System.out.println("OK, fino a dopo l'ordinamento ci e' arrivato.");
 		
 		return null;
 	}

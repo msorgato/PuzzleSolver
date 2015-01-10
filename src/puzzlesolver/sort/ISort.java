@@ -31,7 +31,5 @@ public interface ISort {
 		return upperLeft;
 	}
 	
-	List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle);
-	
 	Piece[][] sortPuzzle(List<Piece> puzzle);
 }
