@@ -97,7 +97,7 @@ public class ConcurrentSort implements ISort {
 		 * 		thread_ended.wait();
 		 * 
 		 * io pero' ci metterei anche una flag di controllo, in modo che 
-		 * l'attesa non rimanga piantata i eterno. La frag dovrebbe essere impostata
+		 * l'attesa non rimanga piantata in eterno. La frag dovrebbe essere impostata
 		 * dai Thread stessi, che al riscontro di un problema, settano la flag a 
 		 * "CAZZI" e notificano il bastardo addormentato.  
 		 */
@@ -127,6 +127,11 @@ public class ConcurrentSort implements ISort {
 				}
 		}
 		System.out.println("OK, fino a dopo l'ordinamento ci e' arrivato.");
+		
+		/*
+		 * qui ci sta il controllo delle righe. Ora, si potrebbe fare che l'ordinamento controlla tutto alla fine,
+		 * oppure si imposta il flag di controllo e si modifica la condizione di attesa di cui sopra.
+		 */
 		
 		return null;
 	}
