@@ -16,11 +16,14 @@ public class ConcurrentSort implements ISort {
 	private class SortLineThread extends Thread {
 		private Piece firstRowPiece;
 		private int row;
+		private List<Piece> puzzle;
 		
-		public SortLineThread(Piece firstRowPiece, int row) { 
+		public SortLineThread(Piece firstRowPiece, int row, List<Piece> puzzle) { 
 			this.firstRowPiece = firstRowPiece; 
 			this.row = row;
-			start(); }
+			this.puzzle = puzzle;
+			start(); 
+		}
 		
 		public void run() {
 			
@@ -84,6 +87,18 @@ public class ConcurrentSort implements ISort {
 		 * "CAZZI" e notificano il bastardo addormentato.  
 		 */
 		
+		Piece[] leftBorder = getLeftBorder(puzzle);
+		if(leftBorder == null) {
+			System.out.println("Problemi nella creazione della prima colonna per l'ordinamento.");
+			return null;
+		}
+		
+		orderedPuzzle = new ArrayList<Piece[]>(leftBorder.length);
+		
+		for(int i = 0; i < leftBorder.length; i++) {
+			new SortLineThread(leftBorder[i], i, puzzle);
+			thread_started++;
+		}
 		
 		return null;
 	}
