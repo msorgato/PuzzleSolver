@@ -41,9 +41,9 @@ public class ConcurrentSort implements ISort {
 			}
 			
 			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())		//vuol dire che il puzzle e' finito prima di completare la riga
-				orderedPuzzle.add(row, null);
+				orderedPuzzle.set(row, null);
 			else
-				orderedPuzzle.add(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
+				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
 			synchronized(thread_ended) {
 				thread_ended++;
