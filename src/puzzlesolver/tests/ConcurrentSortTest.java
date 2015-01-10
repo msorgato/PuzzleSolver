@@ -27,8 +27,6 @@ public class ConcurrentSortTest {
 		puzzle.add(a); puzzle.add(v); puzzle.add(o); puzzle.add(r); puzzle.add(p);
 		puzzle.add(r1); puzzle.add(p1); puzzle.add(v1); puzzle.add(o1); puzzle.add(a1);
 		
-		List<Piece> lista = new ArrayList<Piece>(5);
-		System.out.println("Grandezza di lista: " + lista.size());
 		
 		//A questo punto si procede con l'ordinamento e la stampa del puzzle ordinato
 		ISort sort = new ConcurrentSort();

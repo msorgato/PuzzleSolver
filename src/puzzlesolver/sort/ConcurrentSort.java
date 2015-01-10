@@ -8,10 +8,23 @@ import puzzlesolver.piece.Piece;
 public class ConcurrentSort implements ISort {
 	//contatori dei thread utilizzati nell'ordinamento
 	private int thread_started = 0;
-	private Integer thread_ended = new Integer(0);	//oggetto di sincronizzazione, pertanto uso la classe wrapper
+	private EndedMonitor thread_ended = new EndedMonitor();	//oggetto di sincronizzazione
 	
 	//lista di array di Piece che verrà acceduta concorrentemente nell'ordinamento
 	private List<Piece[]> orderedPuzzle;
+	
+	private class EndedMonitor {
+		private int endedCounter = 0;
+		
+		public synchronized void incrementEnded() {
+			endedCounter++;
+			notify();
+		}
+		
+		public synchronized int getEnded() {
+			return endedCounter;
+		}
+	}
 	
 	private class SortLineThread extends Thread {
 		private Piece firstRowPiece;
@@ -45,10 +58,7 @@ public class ConcurrentSort implements ISort {
 			else
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
-			synchronized(thread_ended) {
-				thread_ended++;
-				thread_ended.notify();
-			}
+			thread_ended.incrementEnded();
 		}
 	}
 	
@@ -98,17 +108,18 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
-		orderedPuzzle = new ArrayList<Piece[]>(leftBorder.length);		//COSTRUTTORE INUTILE.
+		orderedPuzzle = new ArrayList<Piece[]>();		//COSTRUTTORE INUTILE.
 		System.out.println("Grandezza di orderedPuzzle: " + orderedPuzzle.size());
 		System.out.println("Grandezza di leftBorder: " + leftBorder.length);
 		
 		for(int i = 0; i < leftBorder.length; i++) {
+			orderedPuzzle.add(null);
 			new SortLineThread(leftBorder[i], i, puzzle);
 			thread_started++;
 		}
 		
 		synchronized(thread_ended) {
-			while(!(thread_started == thread_ended))
+			while(!(thread_started == thread_ended.getEnded()))
 				try {
 					thread_ended.wait();				//<------ occhio che questa istruzione potrebbe avere attesa infinita.
 				} catch (InterruptedException e) {
