@@ -16,7 +16,7 @@ public class ConcurrentSort implements ISort {
 	private class SortLineThread extends Thread {
 		private Piece firstRowPiece;
 		private int row;
-		private List<Piece> puzzle;
+		private final List<Piece> puzzle;
 		
 		public SortLineThread(Piece firstRowPiece, int row, List<Piece> puzzle) { 
 			this.firstRowPiece = firstRowPiece; 
@@ -98,6 +98,15 @@ public class ConcurrentSort implements ISort {
 		for(int i = 0; i < leftBorder.length; i++) {
 			new SortLineThread(leftBorder[i], i, puzzle);
 			thread_started++;
+		}
+		
+		synchronized(thread_ended) {
+			while(!(thread_started == thread_ended))
+				try {
+					thread_ended.wait();				//<------ occhio che questa istruzione potrebbe avere attesa infinita.
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 		}
 		
 		return null;
