@@ -26,16 +26,35 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		public void run() {
+			Piece currentPiece = firstRowPiece;
+			int currentIndex = 0;
+			List<Piece> puzzleLine = new ArrayList<Piece>();
+			puzzleLine.add(firstRowPiece);
+			while(currentIndex < puzzle.size() && !currentPiece.borderEast()) {
+				if(puzzle.get(currentIndex).getId().equals(currentPiece.getEast())) {
+					currentPiece = puzzle.get(currentIndex);
+					puzzleLine.add(currentPiece);
+					currentIndex = 0;
+					continue;
+				}
+				currentIndex++;
+			}
 			
+			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())		//vuol dire che il puzzle e' finito prima di completare la riga
+				orderedPuzzle.add(row, null);
+			else
+				orderedPuzzle.add(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
+			
+			synchronized(thread_ended) {
+				thread_ended++;
+				thread_ended.notify();
+			}
 		}
 	}
 	
 	//forse queste manco servono, basta inglobarle nel codice della run del SortLineThread
 	private void addEnded() {
-		synchronized(thread_ended) {
-			thread_ended++;
-			thread_ended.notify();
-		}
+		
 	}
 	private int getEnded() {
 		synchronized(thread_ended) {
