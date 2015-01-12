@@ -38,11 +38,13 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		public void run() {
+			final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;		//this is the key
 			Piece currentPiece = firstRowPiece;
-			int currentIndex = 0;
+			int currentIndex = 0, currentIter = 0;
 			List<Piece> puzzleLine = new ArrayList<Piece>();
 			puzzleLine.add(firstRowPiece);
-			while(currentIndex < puzzle.size() && !currentPiece.borderEast()) {
+			while(currentIndex < puzzle.size() && !currentPiece.borderEast() && (currentIter <= MAX_ITER)) {
+				currentIter++;
 				if(puzzle.get(currentIndex).getId().equals(currentPiece.getEast())) {
 					currentPiece = puzzle.get(currentIndex);
 					puzzleLine.add(currentPiece);
