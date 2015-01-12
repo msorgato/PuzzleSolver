@@ -14,7 +14,7 @@ public class ConcurrentSortTest {
 				r = new Piece("r1	r	VUOTO 	o1 	r2 	p1"), 
 				o = new Piece("o1 	o 	VUOTO 	v1 	o2 	r1"), 
 				v = new Piece("v1 	v	VUOTO 	a1 	v2 	o1"), 
-				a = new Piece("a1 	a	VUOTO 	VUOTO 	a2 	v1"),
+				a = new Piece("a1 	a	VUOTO 	j5 	a2 	v1"),
 				p1 = new Piece("p2 	 	p1 	 r2 	 VUOTO 	 VUOTO"), 
 				r1 = new Piece("r2	t	r1 	o2 	VUOTO 	p2"), 
 				o1 = new Piece("o2 	e 	o1 	v2 	VUOTO 	r2"), 
@@ -31,6 +31,11 @@ public class ConcurrentSortTest {
 		//A questo punto si procede con l'ordinamento e la stampa del puzzle ordinato
 		ISort sort = new ConcurrentSort();
 		Piece[][] ordered = sort.sortPuzzle(puzzle);
+		
+		if(ordered == null) {
+			System.out.println("HA RITORNATO PROBLEMI");
+			return;
+		}
 		
 		for(int i = 0; i < ordered.length; i++) 
 			for(int j = 0; j < ordered[i].length; j++)

@@ -90,7 +90,13 @@ public class ConcurrentSort implements ISort {
 	}
 	
 	private int rowCheck() {
-		int rowSize = orderedPuzzle.get(0).length;
+		int rowSize;
+		try {
+			rowSize = orderedPuzzle.get(0).length;
+		} catch(NullPointerException e) {
+			//la prima riga ha presentato problemi nell'ordinamento
+			return 0;
+		}
 		for(int i = 0; i < orderedPuzzle.size(); i++) {
 			if(orderedPuzzle.get(i) == null)
 				return i;
