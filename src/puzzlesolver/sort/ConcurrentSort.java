@@ -113,7 +113,7 @@ public class ConcurrentSort implements ISort {
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
 		/* 
 		 * io pero' ci metterei anche una flag di controllo, in modo che 
-		 * l'attesa non rimanga piantata in eterno. La frag dovrebbe essere impostata
+		 * l'attesa non rimanga piantata in eterno. La flag dovrebbe essere impostata
 		 * dai Thread stessi, che al riscontro di un problema, settano la flag a 
 		 * "CAZZI" e notificano il bastardo addormentato.  
 		 */
@@ -138,7 +138,6 @@ public class ConcurrentSort implements ISort {
 					e.printStackTrace();
 				}
 		}
-		System.out.println("OK, fino a dopo l'ordinamento ci e' arrivato.");
 		
 		int rowCheckResult = rowCheck();
 		if(rowCheckResult != -1) {
@@ -154,20 +153,9 @@ public class ConcurrentSort implements ISort {
 				for(int j = 0; j < orderedPuzzle.get(i).length; j++)
 					orderedMatrix[i][j] = orderedPuzzle.get(i)[j];
 		} catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("La dimensione del puzzle ordinato non e' regolamentare.");
+			System.out.println("La dimensione del puzzle ordinato non e' NxM.");
 			return null;
 		}
-		
-		
-		/*for(int i = 0; i < orderedPuzzle.size(); i++)
-			for(int j = 0; j < orderedPuzzle.get(i).length; j++)
-				System.out.print(orderedPuzzle.get(i)[j].getCharacter() + " ");
-		*/
-		
-		/*
-		 * qui ci sta il controllo delle righe. Ora, si potrebbe fare che l'ordinamento controlla tutto alla fine,
-		 * oppure si imposta il flag di controllo e si modifica la condizione di attesa di cui sopra.
-		 */
 		
 		return orderedMatrix;
 	}
