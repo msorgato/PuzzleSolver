@@ -31,6 +31,10 @@ public class ConcurrentSortTest {
 		//A questo punto si procede con l'ordinamento e la stampa del puzzle ordinato
 		ISort sort = new ConcurrentSort();
 		Piece[][] ordered = sort.sortPuzzle(puzzle);
+		
+		for(int i = 0; i < ordered.length; i++) 
+			for(int j = 0; j < ordered[i].length; j++)
+				System.out.print(ordered[i][j].getCharacter() + " ");
 
 	}
 

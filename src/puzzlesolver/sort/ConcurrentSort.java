@@ -10,7 +10,7 @@ public class ConcurrentSort implements ISort {
 	private EndedMonitor thread_ended = new EndedMonitor();	//oggetto di sincronizzazione
 	
 	//lista di array di Piece che verra' acceduta concorrentemente nell'ordinamento
-	private List<Piece[]> orderedPuzzle;
+	private List<Piece[]> orderedPuzzle = new ArrayList<Piece[]>();
 	
 	private class EndedMonitor {
 		private int endedCounter = 0;
@@ -69,7 +69,7 @@ public class ConcurrentSort implements ISort {
 		if(upperLeft == null)
 			return null;
 		
-		List<Piece> firstColumn = new ArrayList();
+		List<Piece> firstColumn = new ArrayList<Piece>();
 		firstColumn.add(upperLeft);
 		String nextPieceID = upperLeft.getSouth();
 		int currentIndex = 0;
@@ -90,20 +90,22 @@ public class ConcurrentSort implements ISort {
 	}
 	
 	private int rowCheck() {
-		for(int i = 0; i < orderedPuzzle.size(); i++)
+		int rowSize = orderedPuzzle.get(0).length;
+		for(int i = 0; i < orderedPuzzle.size(); i++) {
 			if(orderedPuzzle.get(i) == null)
 				return i;
+			if(i > 0 && (orderedPuzzle.get(i).length != rowSize)) {
+				System.out.println("La riga " + (i + 1) + " ha una lunghezza diversa dalla prima riga.");
+				return i; 
+			}
+		}
 		return -1;
 	}
 
 
 	@Override
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
-		/*
-		 * la condizione di attesa per il metodo e':
-		 * while(!(thread_started == thread_ended))
-		 * 		thread_ended.wait();
-		 * 
+		/* 
 		 * io pero' ci metterei anche una flag di controllo, in modo che 
 		 * l'attesa non rimanga piantata in eterno. La frag dovrebbe essere impostata
 		 * dai Thread stessi, che al riscontro di un problema, settano la flag a 
@@ -116,9 +118,6 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
-		orderedPuzzle = new ArrayList<Piece[]>();		//COSTRUTTORE INUTILE.
-		System.out.println("Grandezza di orderedPuzzle: " + orderedPuzzle.size());
-		System.out.println("Grandezza di leftBorder: " + leftBorder.length);
 		
 		for(int i = 0; i < leftBorder.length; i++) {
 			orderedPuzzle.add(null);
@@ -138,20 +137,33 @@ public class ConcurrentSort implements ISort {
 		int rowCheckResult = rowCheck();
 		if(rowCheckResult != -1) {
 			//la notazione "rowCheckResult + 1" e' dovuta al fatto di numerare le righe a partire da 1
-			System.out.println("L'ordinamento della riga " + (rowCheckResult + 1) + " ha riscontrato de problemi.");
+			System.out.println("L'ordinamento della riga " + (rowCheckResult + 1) + " ha riscontrato dei problemi.");
 			return null;
 		}
 		
-		for(int i = 0; i < orderedPuzzle.size(); i++)
+		Piece[][] orderedMatrix = new Piece[orderedPuzzle.size()][orderedPuzzle.get(0).length];
+		
+		try {
+			for(int i = 0; i < orderedPuzzle.size(); i++)
+				for(int j = 0; j < orderedPuzzle.get(i).length; j++)
+					orderedMatrix[i][j] = orderedPuzzle.get(i)[j];
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("La dimensione del puzzle ordinato non e' regolamentare.");
+			return null;
+		}
+		
+		
+		/*for(int i = 0; i < orderedPuzzle.size(); i++)
 			for(int j = 0; j < orderedPuzzle.get(i).length; j++)
 				System.out.print(orderedPuzzle.get(i)[j].getCharacter() + " ");
+		*/
 		
 		/*
 		 * qui ci sta il controllo delle righe. Ora, si potrebbe fare che l'ordinamento controlla tutto alla fine,
 		 * oppure si imposta il flag di controllo e si modifica la condizione di attesa di cui sopra.
 		 */
 		
-		return null;
+		return orderedMatrix;
 	}
 
 }
