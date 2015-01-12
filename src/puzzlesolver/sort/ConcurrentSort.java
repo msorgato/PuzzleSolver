@@ -6,11 +6,10 @@ import java.util.List;
 import puzzlesolver.piece.Piece;
 
 public class ConcurrentSort implements ISort {
-	//contatori dei thread utilizzati nell'ordinamento
-	private int thread_started = 0;
+	//contatore dei thread utilizzati nell'ordinamento
 	private EndedMonitor thread_ended = new EndedMonitor();	//oggetto di sincronizzazione
 	
-	//lista di array di Piece che verrà acceduta concorrentemente nell'ordinamento
+	//lista di array di Piece che verra' acceduta concorrentemente nell'ordinamento
 	private List<Piece[]> orderedPuzzle;
 	
 	private class EndedMonitor {
@@ -53,8 +52,10 @@ public class ConcurrentSort implements ISort {
 				currentIndex++;
 			}
 			
-			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())		//vuol dire che il puzzle e' finito prima di completare la riga
+			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())	{	//vuol dire che il puzzle e' finito prima di completare la riga
 				orderedPuzzle.set(row, null);
+				System.out.println("L'ordinamento della  riga " + (row + 1) + " e' terminato prima di giungere al bordo est.");
+			}
 			else
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
@@ -63,7 +64,7 @@ public class ConcurrentSort implements ISort {
 	}
 	
 	
-	private Piece[] getLeftBorder(List<Piece> puzzle) {
+	private static Piece[] getLeftBorder(List<Piece> puzzle) {
 		Piece upperLeft = ISort.getUpperLeft(puzzle);
 		if(upperLeft == null)
 			return null;
@@ -86,6 +87,13 @@ public class ConcurrentSort implements ISort {
 			return null;
 		
 		return firstColumn.toArray(new Piece[firstColumn.size()]);
+	}
+	
+	private int rowCheck() {
+		for(int i = 0; i < orderedPuzzle.size(); i++)
+			if(orderedPuzzle.get(i) == null)
+				return i;
+		return -1;
 	}
 
 
@@ -115,11 +123,10 @@ public class ConcurrentSort implements ISort {
 		for(int i = 0; i < leftBorder.length; i++) {
 			orderedPuzzle.add(null);
 			new SortLineThread(leftBorder[i], i, puzzle);
-			thread_started++;
 		}
 		
 		synchronized(thread_ended) {
-			while(!(thread_started == thread_ended.getEnded()))
+			while(!(leftBorder.length == thread_ended.getEnded()))
 				try {
 					thread_ended.wait();				//<------ occhio che questa istruzione potrebbe avere attesa infinita.
 				} catch (InterruptedException e) {
@@ -127,6 +134,17 @@ public class ConcurrentSort implements ISort {
 				}
 		}
 		System.out.println("OK, fino a dopo l'ordinamento ci e' arrivato.");
+		
+		int rowCheckResult = rowCheck();
+		if(rowCheckResult != -1) {
+			//la notazione "rowCheckResult + 1" e' dovuta al fatto di numerare le righe a partire da 1
+			System.out.println("L'ordinamento della riga " + (rowCheckResult + 1) + " ha riscontrato de problemi.");
+			return null;
+		}
+		
+		for(int i = 0; i < orderedPuzzle.size(); i++)
+			for(int j = 0; j < orderedPuzzle.get(i).length; j++)
+				System.out.print(orderedPuzzle.get(i)[j].getCharacter() + " ");
 		
 		/*
 		 * qui ci sta il controllo delle righe. Ora, si potrebbe fare che l'ordinamento controlla tutto alla fine,

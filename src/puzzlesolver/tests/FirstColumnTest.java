@@ -27,7 +27,7 @@ public class FirstColumnTest {
 		puzzle.add(r1); puzzle.add(p1); puzzle.add(v1); puzzle.add(o1); puzzle.add(a1);
 		
 		ConcurrentSort sorter = new ConcurrentSort();
-		Piece[] firstColumn = sorter.getLeftBorder(puzzle);
+		/*Piece[] firstColumn = sorter.getLeftBorder(puzzle);
 		if(firstColumn == null) {
 			System.out.println("Casini nella costruzione della prima riga");
 			return;
@@ -35,7 +35,7 @@ public class FirstColumnTest {
 		
 		for(int i = 0; i < firstColumn.length; i++)
 			System.out.println(firstColumn[i].getCharacter());
-
+		*/
 	}
 
 }
