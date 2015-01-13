@@ -33,7 +33,7 @@ public class ConcurrentSortTest {
 		Piece[][] ordered = sort.sortPuzzle(puzzle);
 		
 		if(ordered == null) {
-			System.out.println("HA RITORNATO PROBLEMI");
+			System.out.println("HA RITORNATO NULL");
 			return;
 		}
 		

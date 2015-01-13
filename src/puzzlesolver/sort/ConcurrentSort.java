@@ -6,13 +6,15 @@ import java.util.List;
 import puzzlesolver.piece.Piece;
 
 public class ConcurrentSort implements ISort {
-	//contatore dei thread utilizzati nell'ordinamento
-	private EndedMonitor thread_ended = new EndedMonitor();	//oggetto di sincronizzazione
+	//contatore dei thread utilizzati nell'ordinamento e oggetto di sincronizzazione
+	private EndedMonitor thread_ended = new EndedMonitor();	
+	//flag che viene impostata a false soltanto al riscontro di problemi nell'ordinamento
+	private boolean allOk = true;
 	
 	//lista di array di Piece che verra' acceduta concorrentemente nell'ordinamento
 	private List<Piece[]> orderedPuzzle = new ArrayList<Piece[]>();
 	
-	private class EndedMonitor {
+	public class EndedMonitor {
 		private int endedCounter = 0;
 		
 		public synchronized void incrementEnded() {
@@ -54,9 +56,12 @@ public class ConcurrentSort implements ISort {
 				currentIndex++;
 			}
 			
-			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())	{	//vuol dire che il puzzle e' finito prima di completare la riga
+			if(!puzzleLine.get(puzzleLine.size() - 1).borderEast())	{	
+				//vuol dire che il puzzle e' finito prima di completare la riga
 				orderedPuzzle.set(row, null);
-				System.out.println("L'ordinamento della  riga " + (row + 1) + " e' terminato prima di giungere al bordo est.");
+				allOk = false;
+				System.out.println("L'ordinamento della riga " + (row + 1) + " e' terminato "
+						+ "prima di giungere al bordo est.");
 			}
 			else
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
@@ -133,12 +138,17 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		synchronized(thread_ended) {
-			while(!(leftBorder.length == thread_ended.getEnded()))		//da aggiornare con la flag dei thread
+			while(!(leftBorder.length == thread_ended.getEnded()) && allOk)		//da aggiornare con la flag dei thread
 				try {
 					thread_ended.wait();		//questa wait non attende mai infinitamente
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+		}
+		
+		if(!allOk) {
+			System.out.println("Il processo di ordinamento delle righe ha riscontrato dei problemi.");
+			return null;
 		}
 		
 		int rowCheckResult = rowCheck();
