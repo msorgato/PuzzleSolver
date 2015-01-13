@@ -40,7 +40,16 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		public void run() {
-			final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;		//this is the key
+			/*
+			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
+			 * ordinare una riga di un puzzle. Ovvero, si calcola la percorrenza di tutta la lista fino all'ultimo
+			 * elemento per ogni elemento, ogni volta diminuendo di 1 la dimensione della lista (idealmente, 
+			 * togliamo un pezzo ad ogni passata).
+			 * Quindi, il numero massimo si riconduce al problema della somma dei primi n numeri naturali, la
+			 * cui formula e' la sottostante.
+			 */
+			final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;	
+			
 			Piece currentPiece = firstRowPiece;
 			int currentIndex = 0, currentIter = 0;
 			List<Piece> puzzleLine = new ArrayList<Piece>();
