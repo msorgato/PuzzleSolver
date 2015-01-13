@@ -133,9 +133,9 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		synchronized(thread_ended) {
-			while(!(leftBorder.length == thread_ended.getEnded()))
+			while(!(leftBorder.length == thread_ended.getEnded()))		//da aggiornare con la flag dei thread
 				try {
-					thread_ended.wait();				//<------ occhio che questa istruzione potrebbe avere attesa infinita.
+					thread_ended.wait();		//questa wait non attende mai infinitamente
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
