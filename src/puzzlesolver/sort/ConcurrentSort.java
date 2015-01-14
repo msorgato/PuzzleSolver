@@ -49,10 +49,11 @@ public class ConcurrentSort implements ISort {
 			this.firstRowPiece = firstRowPiece; 
 			this.row = row;
 			this.puzzle = puzzle;
-			start(); 
+			start();
 		}
 		
 		public void run() {
+			System.out.println("Thread riga " + (row + 1) + " partito");
 			/*
 			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
 			 * ordinare una riga di un puzzle. Ovvero, si calcola la percorrenza di tutta la lista fino all'ultimo
@@ -91,6 +92,8 @@ public class ConcurrentSort implements ISort {
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
 			thread_ended.incrementEnded();
+			System.out.println("Thread riga " + (row + 1) + " partito");
+			
 		}
 	}
 	
