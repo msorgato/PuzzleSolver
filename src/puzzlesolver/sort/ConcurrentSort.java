@@ -7,6 +7,7 @@ import puzzlesolver.piece.Piece;
 
 public class ConcurrentSort implements ISort {
 	
+	//oggetto utilizzato per il forwarding dei metodi dell'interfaccia ISort
 	private ISort.DefaultSort forward = new ISort.DefaultSort();
 	
 	@Override
@@ -43,6 +44,7 @@ public class ConcurrentSort implements ISort {
 	private class SortLineThread extends Thread {
 		private Piece firstRowPiece;
 		private int row;
+		//marcatura final del riferimento per evitare race condition tra i vari SortLineThread
 		private final List<Piece> puzzle;
 		
 		public SortLineThread(Piece firstRowPiece, int row, List<Piece> puzzle) { 
@@ -54,15 +56,17 @@ public class ConcurrentSort implements ISort {
 		
 		public void run() {
 			System.out.println("Thread riga " + (row + 1) + " partito.");
+			
 			/*
 			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
 			 * ordinare una riga di un puzzle. Ovvero, si calcola la percorrenza di tutta la lista fino all'ultimo
 			 * elemento per ogni elemento, ogni volta diminuendo di 1 la dimensione della lista (idealmente, 
 			 * togliamo un pezzo ad ogni passata).
-			 * Quindi, il numero massimo si riconduce al problema della somma dei primi n numeri naturali, la
-			 * cui formula e' la sottostante.
+			 * Quindi, il numero massimo di iterazioni si riconduce al problema della somma dei primi n numeri naturali,
+			 * la cui formula e' la sottostante.
 			 */
-			final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;	
+			final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;	 	
+			//qui dovrebbe essere (puzzle.size() * (puzzle.size() + 1)) / (2 * (row + 1)) 
 			
 			Piece currentPiece = firstRowPiece;
 			int currentIndex = 0, currentIter = 0;
@@ -92,6 +96,7 @@ public class ConcurrentSort implements ISort {
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
 			thread_ended.incrementEnded();
+			
 			System.out.println("Thread riga " + (row + 1) + " terminato.");
 			
 		}
@@ -116,7 +121,7 @@ public class ConcurrentSort implements ISort {
 				currentIndex++;
 		}
 		
-		if(!firstColumn.get(firstColumn.size() -1).borderSouth())
+		if(!firstColumn.get(firstColumn.size() - 1).borderSouth())
 			return null;
 		
 		return firstColumn.toArray(new Piece[firstColumn.size()]);
@@ -157,11 +162,13 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		synchronized(thread_ended) {
-			while(!(leftBorder.length == thread_ended.getEnded()) && allOk)		
+			while(!(thread_ended.getEnded() == leftBorder.length) && allOk)		
 				try {
 					thread_ended.wait();		
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					System.out.println("Il main Thread e' stato interrotto mentre era in attesa dei Thread di"
+							+ " ordinamento");
 					return null;
 				}
 		}
