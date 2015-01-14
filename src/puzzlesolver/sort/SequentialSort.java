@@ -18,6 +18,14 @@ public class SequentialSort implements ISort {
 		return null;											//se non trovo il pezzo, ritorno null
 	}
 	
+	public static boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
+		int orderedSize = 0;
+		for(int i = 0; i < orderedPuzzle.length; i++)
+			for(int j = 0; j < orderedPuzzle[i].length; j++)
+				orderedSize++;
+		
+		return orderedSize == originalSize;
+	}
 	
 	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
 		Piece currentPiece = firstPiece;
@@ -72,7 +80,7 @@ public class SequentialSort implements ISort {
 				orderedPuzzle[i][j] = rowPieces.get(j);
 		}
 		
-		if(ISort.compareSize(puzzleSize, orderedPuzzle))
+		if(compareSize(puzzleSize, orderedPuzzle))
 			return orderedPuzzle;
 		
 		System.out.println("La dimensione del puzzle dopo l'ordinamento e' minore di quella di partenza.");
