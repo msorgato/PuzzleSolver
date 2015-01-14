@@ -11,7 +11,7 @@ public interface ISort {
 	 * del puzzle ordinato. Viene calcolata la dimensione del puzzle ordinato e 
 	 * si ritorna il risultato.
 	 */
-	static boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
+	static public boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
 		int orderedSize = 0;
 		for(int i = 0; i < orderedPuzzle.length; i++)
 			for(int j = 0; j < orderedPuzzle[i].length; j++)
@@ -20,7 +20,7 @@ public interface ISort {
 		return orderedSize == originalSize;
 	}
 	
-	static Piece getUpperLeft(List<Piece> puzzle) {
+	static public Piece getUpperLeft(List<Piece> puzzle) {
 		Piece upperLeft = null;
 		for(int i = 0; i < puzzle.size(); i++) {
 			if(puzzle.get(i).borderWest() && puzzle.get(i).borderNorth()) {
