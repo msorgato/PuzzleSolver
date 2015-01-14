@@ -16,7 +16,7 @@ import puzzlesolver.parser.IParser;
 import puzzlesolver.parser.PuzzleParser;
 import puzzlesolver.piece.Piece;
 import puzzlesolver.sort.ISort;
-import puzzlesolver.sort.SequentialSort;
+import puzzlesolver.sort.ConcurrentSort;
 
 
 public class PuzzleSolver {
@@ -133,7 +133,7 @@ public class PuzzleSolver {
 		if(parser.idCheck(pieces) != -1)
 			return;
 		
-		ISort sorter = new SequentialSort();
+		ISort sorter = new ConcurrentSort();
 		Piece[][] puzzle = sorter.sortPuzzle(pieces);
 		if(puzzle == null) {
 			System.out.println("L'algoritmo di ordinamento ha presentato dei problemi");
