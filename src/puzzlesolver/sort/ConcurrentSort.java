@@ -6,6 +6,19 @@ import java.util.List;
 import puzzlesolver.piece.Piece;
 
 public class ConcurrentSort implements ISort {
+	
+	private ISort.DefaultSort forward = new ISort.DefaultSort();
+	
+	@Override
+	public boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
+		return forward.compareSize(originalSize, orderedPuzzle);
+	}
+
+	@Override
+	public Piece getUpperLeft(List<Piece> puzzle) {
+		return forward.getUpperLeft(puzzle);
+	}
+	
 	//contatore dei thread utilizzati nell'ordinamento e oggetto di sincronizzazione
 	private EndedMonitor thread_ended = new EndedMonitor();	
 	//flag che viene impostata a false soltanto al riscontro di problemi nell'ordinamento
@@ -81,18 +94,7 @@ public class ConcurrentSort implements ISort {
 		}
 	}
 	
-	public static Piece getUpperLeft(List<Piece> puzzle) {
-		Piece upperLeft = null;
-		for(int i = 0; i < puzzle.size(); i++) {
-			if(puzzle.get(i).borderWest() && puzzle.get(i).borderNorth()) {
-				upperLeft = puzzle.get(i);
-				break;
-			}
-		}	
-		return upperLeft;
-	}
-	
-	private static Piece[] getLeftBorder(List<Piece> puzzle) {
+	private Piece[] getLeftBorder(List<Piece> puzzle) {
 		Piece upperLeft = getUpperLeft(puzzle);
 		if(upperLeft == null)
 			return null;

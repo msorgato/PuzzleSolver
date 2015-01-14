@@ -7,6 +7,18 @@ import puzzlesolver.piece.Piece;
 
 public class SequentialSort implements ISort {
 	
+	private ISort.DefaultSort forward = new ISort.DefaultSort();
+	
+	@Override
+	public boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
+		return forward.compareSize(originalSize, orderedPuzzle);
+	}
+
+	@Override
+	public Piece getUpperLeft(List<Piece> puzzle) {
+		return forward.getUpperLeft(puzzle);
+	}
+	
 	/*
 	 * Metodo che ricerca il pezzo di id voluto, lo rimuove dal puzzle e lo ritorna.
 	 * Se il pezzo non viene trovato, viene ritornato null.
@@ -18,14 +30,6 @@ public class SequentialSort implements ISort {
 		return null;											//se non trovo il pezzo, ritorno null
 	}
 	
-	public static boolean compareSize(int originalSize, Piece[][] orderedPuzzle) {
-		int orderedSize = 0;
-		for(int i = 0; i < orderedPuzzle.length; i++)
-			for(int j = 0; j < orderedPuzzle[i].length; j++)
-				orderedSize++;
-		
-		return orderedSize == originalSize;
-	}
 	
 	public List<Piece> sortLine(Piece firstPiece, List<Piece> puzzle) {
 		Piece currentPiece = firstPiece;
@@ -49,13 +53,7 @@ public class SequentialSort implements ISort {
 	
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
 		int puzzleSize = puzzle.size();			//probabilmente la procedura di ricavo della prima riga andrebbe spezzata in una funzione a parte
-		Piece upperLeft = null;
-		for(int i = 0; i < puzzle.size(); i++) {
-			if(puzzle.get(i).borderWest() && puzzle.get(i).borderNorth()) {
-				upperLeft = puzzle.remove(i);
-				break;
-			}
-		}
+		Piece upperLeft = getUpperLeft(puzzle);
 		if(upperLeft == null)			//non e' stato trovato l'angolo in alto a sinistra -> manca (almeno) un pezzo
 			return null;	
 		
