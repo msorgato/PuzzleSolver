@@ -27,7 +27,7 @@ public class ConcurrentSort implements ISort {
 	//lista di array di Piece che verra' acceduta concorrentemente nell'ordinamento
 	private List<Piece[]> orderedPuzzle = new ArrayList<Piece[]>();
 	
-	public class EndedMonitor {
+	private class EndedMonitor {
 		private int endedCounter = 0;
 		
 		public synchronized void incrementEnded() {
@@ -53,7 +53,7 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		public void run() {
-			System.out.println("Thread riga " + (row + 1) + " partito");
+			System.out.println("Thread riga " + (row + 1) + " partito.");
 			/*
 			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
 			 * ordinare una riga di un puzzle. Ovvero, si calcola la percorrenza di tutta la lista fino all'ultimo
@@ -92,12 +92,12 @@ public class ConcurrentSort implements ISort {
 				orderedPuzzle.set(row, puzzleLine.toArray(new Piece[puzzleLine.size()]));
 			
 			thread_ended.incrementEnded();
-			System.out.println("Thread riga " + (row + 1) + " partito");
+			System.out.println("Thread riga " + (row + 1) + " terminato.");
 			
 		}
 	}
 	
-	private Piece[] getLeftBorder(List<Piece> puzzle) {
+	public Piece[] getLeftBorder(List<Piece> puzzle) {
 		Piece upperLeft = getUpperLeft(puzzle);
 		if(upperLeft == null)
 			return null;
@@ -116,7 +116,7 @@ public class ConcurrentSort implements ISort {
 				currentIndex++;
 		}
 		
-		if(!firstColumn.get(firstColumn.size() -1).getSouth().equals("VUOTO"))
+		if(!firstColumn.get(firstColumn.size() -1).borderSouth())
 			return null;
 		
 		return firstColumn.toArray(new Piece[firstColumn.size()]);
@@ -144,12 +144,6 @@ public class ConcurrentSort implements ISort {
 
 	@Override
 	public Piece[][] sortPuzzle(List<Piece> puzzle) {
-		/* 
-		 * io pero' ci metterei anche una flag di controllo, in modo che 
-		 * l'attesa non rimanga piantata in eterno. La flag dovrebbe essere impostata
-		 * dai Thread stessi, che al riscontro di un problema, settano la flag a 
-		 * "CAZZI" e notificano il bastardo addormentato.  
-		 */
 		
 		Piece[] leftBorder = getLeftBorder(puzzle);
 		if(leftBorder == null) {
@@ -157,18 +151,18 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
-		
 		for(int i = 0; i < leftBorder.length; i++) {
 			orderedPuzzle.add(null);
 			new SortLineThread(leftBorder[i], i, puzzle);
 		}
 		
 		synchronized(thread_ended) {
-			while(!(leftBorder.length == thread_ended.getEnded()) && allOk)		//da aggiornare con la flag dei thread
+			while(!(leftBorder.length == thread_ended.getEnded()) && allOk)		
 				try {
-					thread_ended.wait();		//questa wait non attende mai infinitamente
+					thread_ended.wait();		
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					return null;
 				}
 		}
 		
