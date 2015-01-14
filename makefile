@@ -11,9 +11,12 @@ CLASSES = \
 	src/puzzlesolver/parser/PuzzleParser.java \
 	src/puzzlesolver/sort/ISort.java \
 	src/puzzlesolver/sort/SequentialSort.java \
+	src/puzzlesolver/sort/ConcurrentSort.java \
 	src/puzzlesolver/tests/CorrectParserTest.java \
 	src/puzzlesolver/tests/CorrectSortTest.java \
 	src/puzzlesolver/tests/WrongParserTest.java \
+	src/puzzlesolver/tests/FirstColumnTest.java \
+	src/puzzlesolver/tests/ConcurrentSortTest.java \
 	src/puzzlesolver/PuzzleSolver.java
 
 default: classes
