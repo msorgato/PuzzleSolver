@@ -39,16 +39,38 @@ public class ConcurrentSortTest {
 		Piece[][] ordered = sort.sortPuzzle(puzzle);
 		
 		if(ordered == null) {
-			System.out.println("HA RITORNATO NULL");
+			System.out.println("Ci sono stati problemi nell'ordinamento.");
 			return;
 		}
 		
+		System.out.println("Stampa del puzzle ordinato:");
 		for(int i = 0; i < ordered.length; i++) { 
 			for(int j = 0; j < ordered[i].length; j++)
 				System.out.print(ordered[i][j].getCharacter() + " ");
 			System.out.println(System.getProperty("line.separator"));
 		}
 		
+		System.out.println("--------------------------------------------------------------------------------------------");
+		System.out.println("Prova con un pezzo che formerebbe un loop di ricerca");
+		
+		/*
+		 * questo pezzo viene sostituito a v1, con id_est cambiato in modo da puntare ad un pezzo
+		 * precedente della stessa riga
+		 */
+		v1 = new Piece("v2 	s	v1 	r2 	v3 	o2");
+		
+		//riempimento del puzzle con il pezzo errato
+		puzzle = new ArrayList<Piece>();
+		puzzle.add(o); puzzle.add(r2); puzzle.add(a2); puzzle.add(p2); puzzle.add(v1); 
+		puzzle.add(a1); puzzle.add(v); puzzle.add(o2); puzzle.add(r); puzzle.add(p);
+		puzzle.add(r1); puzzle.add(p1); puzzle.add(v2); puzzle.add(o1); puzzle.add(a);
+		
+		//Stampe di errore ad indicare la localizzazione del problema
+		Piece[][] nullPuzzle = sort.sortPuzzle(puzzle);
+		
+		if(nullPuzzle == null)
+			System.out.println("Si possono notare appunto, oltre alle stampe di monitoraggio dei Thread, "
+					+ "le stampe di segnalazione di errore.");
 	}
 
 }
