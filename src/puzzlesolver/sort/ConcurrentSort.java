@@ -33,11 +33,16 @@ public class ConcurrentSort implements ISort {
 		
 		public synchronized void incrementEnded() {
 			endedCounter++;
-			notify();
+			notifyAll();
+			System.out.println("NOTIFICATO");
 		}
 		
 		public synchronized int getEnded() {
 			return endedCounter;
+		}
+		
+		public synchronized void resetEnded() {
+			endedCounter = 0;
 		}
 	}
 	
@@ -55,12 +60,13 @@ public class ConcurrentSort implements ISort {
 		}
 		
 		public void run() {
+			//stampa di monitoraggio dello stato del thread
 			System.out.println("Thread riga " + (row + 1) + " partito.");
 			
 			/*
 			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
-			 * ordinare una riga di un puzzle. Ovvero, si calcola la percorrenza di tutta la lista fino all'ultimo
-			 * elemento per ogni elemento, ogni volta diminuendo di 1 la dimensione della lista (idealmente, 
+			 * ordinare una riga di un puzzle, in ordine inverso. Ovvero, si calcola la percorrenza di tutta la lista 
+			 * fino all'ultimo elemento per ogni elemento, ogni volta diminuendo di 1 la dimensione della lista (idealmente, 
 			 * togliamo un pezzo ad ogni passata).
 			 * Quindi, il numero massimo di iterazioni si riconduce al problema della somma dei primi n numeri naturali,
 			 * la cui formula e' la sottostante.
@@ -97,6 +103,7 @@ public class ConcurrentSort implements ISort {
 			
 			thread_ended.incrementEnded();
 			
+			//stampa di monitoraggio dello stato del thread
 			System.out.println("Thread riga " + (row + 1) + " terminato.");
 			
 		}
@@ -107,12 +114,14 @@ public class ConcurrentSort implements ISort {
 		if(upperLeft == null)
 			return null;
 		
+		final int MAX_ITER = (puzzle.size() * (puzzle.size() + 1)) / 2;	
 		List<Piece> firstColumn = new ArrayList<Piece>();
 		firstColumn.add(upperLeft);
 		String nextPieceID = upperLeft.getSouth();
-		int currentIndex = 0;
+		int currentIndex = 0, currentIter = 0;
 		
-		while(!nextPieceID.equals("VUOTO") && currentIndex < puzzle.size()) {
+		while(!nextPieceID.equals("VUOTO") && currentIndex < puzzle.size() && currentIter <= MAX_ITER) {
+			currentIter++;
 			if(puzzle.get(currentIndex).getId().equals(nextPieceID)) {
 				firstColumn.add(puzzle.get(currentIndex));
 				nextPieceID = puzzle.get(currentIndex).getSouth();
@@ -148,7 +157,7 @@ public class ConcurrentSort implements ISort {
 
 
 	@Override
-	public Piece[][] sortPuzzle(List<Piece> puzzle) {
+	public synchronized Piece[][] sortPuzzle(List<Piece> puzzle) {
 		
 		Piece[] leftBorder = getLeftBorder(puzzle);
 		if(leftBorder == null) {
@@ -156,15 +165,19 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
+		System.out.println("leftBorder length = " + leftBorder.length);
+		
 		for(int i = 0; i < leftBorder.length; i++) {
 			orderedPuzzle.add(null);
+			System.out.println(leftBorder[i].getCharacter());
 			new SortLineThread(leftBorder[i], i, puzzle);
 		}
 		
 		synchronized(thread_ended) {
 			while(!(thread_ended.getEnded() == leftBorder.length) && allOk)		
 				try {
-					thread_ended.wait();		
+					thread_ended.wait();
+					System.out.println("Rientro dalla wait e endedCounter e': " + thread_ended.getEnded());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 					System.out.println("Il main Thread e' stato interrotto mentre era in attesa dei Thread di"
@@ -172,6 +185,7 @@ public class ConcurrentSort implements ISort {
 					return null;
 				}
 		}
+		
 		
 		if(!allOk) {
 			System.out.println("Il processo di ordinamento delle righe ha riscontrato dei problemi.");
@@ -195,6 +209,22 @@ public class ConcurrentSort implements ISort {
 			System.out.println("La dimensione del puzzle ordinato non e' NxM.");
 			return null;
 		}
+		
+		synchronized(thread_ended) {
+			while(!(thread_ended.getEnded() == leftBorder.length))		
+				try {
+					thread_ended.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					System.out.println("Il main Thread e' stato interrotto mentre era in attesa dei Thread di"
+							+ " ordinamento");
+					return null;
+				}
+		}
+		
+		thread_ended.resetEnded();
+		allOk = true;
+		orderedPuzzle = new ArrayList<Piece[]>();
 		
 		return orderedMatrix;
 	}
