@@ -71,7 +71,7 @@ public class FirstColumnTest {
 		
 		/*
 		 * se ora proviamo a costruire una colonna con un pezzo illecito (che manderebbe in loop la ricerca, ad esempio),
-		 * vedremo che il metodo ritorna un valore "null" che verrà opportunamente gestito.
+		 * vedremo che il metodo ritorna un valore "null" che verra' opportunamente gestito.
 		 */
 		
 		colonna = new ArrayList<Piece>();
