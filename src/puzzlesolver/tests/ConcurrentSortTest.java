@@ -10,7 +10,7 @@ import puzzlesolver.sort.ConcurrentSort;
 public class ConcurrentSortTest {
 
 	public static void main(String[] args) {
-		/*Piece p = new Piece("p1	 p 	 VUOTO 	 r1 	 p2 	 VUOTO"), 
+		Piece p = new Piece("p1	 p 	 VUOTO 	 r1 	 p2 	 VUOTO"), 
 				r = new Piece("r1	r	VUOTO 	o1 	r2 	p1"), 
 				o = new Piece("o1 	o 	VUOTO 	v1 	o2 	r1"), 
 				v = new Piece("v1 	v	VUOTO 	a1 	v2 	o1"), 
@@ -47,10 +47,9 @@ public class ConcurrentSortTest {
 			for(int j = 0; j < ordered[i].length; j++)
 				System.out.print(ordered[i][j].getCharacter() + " ");
 			System.out.println(System.getProperty("line.separator"));
-		}*/
+		}
 		
 		//prova a singola colonna
-		ISort sort = new ConcurrentSort();
 		Piece z1 = new Piece("c1	c	VUOTO	VUOTO	o1	VUOTO"),
 				z2 = new Piece("o1	o	c1	VUOTO	l1	VUOTO"),
 				z3 = new Piece("l1	l	o1	VUOTO	o2	VUOTO"),
