@@ -49,28 +49,6 @@ public class ConcurrentSortTest {
 			System.out.println(System.getProperty("line.separator"));
 		}
 		
-		//prova a singola colonna
-		Piece z1 = new Piece("c1	c	VUOTO	VUOTO	o1	VUOTO"),
-				z2 = new Piece("o1	o	c1	VUOTO	l1	VUOTO"),
-				z3 = new Piece("l1	l	o1	VUOTO	o2	VUOTO"),
-				z4 = new Piece("o2	o	l1	VUOTO	n1	VUOTO"),
-				z5 = new Piece("n1	n	o2	VUOTO	n2	VUOTO"),
-				z6 = new Piece("n2	n	n1	VUOTO	a1	VUOTO"),
-				z7 = new Piece("a1	a	n2	VUOTO	VUOTO	VUOTO");
-		List<Piece> colonna = new ArrayList<Piece>();
-		colonna.add(z7); colonna.add(z6); colonna.add(z5); colonna.add(z4); colonna.add(z3); colonna.add(z2); colonna.add(z1); 
-		Piece[][] risultato = sort.sortPuzzle(colonna);
-		
-		if(risultato == null) {
-			System.out.println("RISULTATO E' NULL");
-			return;
-		}
-		
-		for(int i = 0; i < risultato.length; i++) { 
-			for(int j = 0; j < risultato[i].length; j++)
-				System.out.print(risultato[i][j].getCharacter() + " ");
-			System.out.println(System.getProperty("line.separator"));
-		}
 	}
 
 }

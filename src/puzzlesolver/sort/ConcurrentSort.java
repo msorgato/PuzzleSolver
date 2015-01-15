@@ -34,7 +34,6 @@ public class ConcurrentSort implements ISort {
 		public synchronized void incrementEnded() {
 			endedCounter++;
 			notifyAll();
-			System.out.println("NOTIFICATO");
 		}
 		
 		public synchronized int getEnded() {
@@ -165,11 +164,8 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
-		System.out.println("leftBorder length = " + leftBorder.length);
-		
 		for(int i = 0; i < leftBorder.length; i++) {
 			orderedPuzzle.add(null);
-			System.out.println(leftBorder[i].getCharacter());
 			new SortLineThread(leftBorder[i], i, puzzle);
 		}
 		
@@ -177,7 +173,6 @@ public class ConcurrentSort implements ISort {
 			while(!(thread_ended.getEnded() == leftBorder.length) && allOk)		
 				try {
 					thread_ended.wait();
-					System.out.println("Rientro dalla wait e endedCounter e': " + thread_ended.getEnded());
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 					System.out.println("Il main Thread e' stato interrotto mentre era in attesa dei Thread di"
@@ -210,6 +205,10 @@ public class ConcurrentSort implements ISort {
 			return null;
 		}
 		
+		/*
+		 * blocco di istruzioni utile solamente nel caso di utilizzi consecutivi di una stessa
+		 * istanza di ConcurrentSort 
+		 */
 		synchronized(thread_ended) {
 			while(!(thread_ended.getEnded() == leftBorder.length))		
 				try {
@@ -222,10 +221,13 @@ public class ConcurrentSort implements ISort {
 				}
 		}
 		
+		//reinizializzazione dei campi per il nuovo possibile ordinamento
 		thread_ended.resetEnded();
 		allOk = true;
 		orderedPuzzle = new ArrayList<Piece[]>();
 		
+		if(!compareSize(puzzle.size(), orderedMatrix))
+			return null;
 		return orderedMatrix;
 	}
 
