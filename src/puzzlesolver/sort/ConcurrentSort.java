@@ -33,7 +33,7 @@ public class ConcurrentSort implements ISort {
 		
 		public synchronized void incrementEnded() {
 			endedCounter++;
-			notifyAll();
+			notify();
 		}
 		
 		public synchronized int getEnded() {
