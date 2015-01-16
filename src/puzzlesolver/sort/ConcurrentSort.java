@@ -28,6 +28,7 @@ public class ConcurrentSort implements ISort {
 	//lista di array di Piece che verra' acceduta concorrentemente nell'ordinamento
 	private List<Piece[]> orderedPuzzle = new ArrayList<Piece[]>();
 	
+	//classe che gestisce l'accesso concorrente al contatore dei Thread
 	private class EndedMonitor {
 		private int endedCounter = 0;
 		
@@ -45,6 +46,7 @@ public class ConcurrentSort implements ISort {
 		}
 	}
 	
+	//Thread che viene utilizzato nell'ordinamento di una riga del puzzle
 	private class SortLineThread extends Thread {
 		private final Piece firstRowPiece;
 		private final int row;
@@ -108,6 +110,7 @@ public class ConcurrentSort implements ISort {
 		}
 	}
 	
+	//metodo che ritorna la prima colonna ordinata del puzzle
 	public Piece[] getLeftBorder(List<Piece> puzzle) {
 		Piece upperLeft = getUpperLeft(puzzle);
 		if(upperLeft == null)
@@ -135,6 +138,10 @@ public class ConcurrentSort implements ISort {
 		return firstColumn.toArray(new Piece[firstColumn.size()]);
 	}
 	
+	/*
+	 * metodo di controllo di ogni riga: che non siano nulle (per problemi riscontrati dai Thread)
+	 * e che la loro lunghezza sia uguale
+	 */
 	private int rowCheck() {
 		int rowSize;
 		try {
