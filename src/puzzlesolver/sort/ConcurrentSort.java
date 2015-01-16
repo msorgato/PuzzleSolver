@@ -46,8 +46,8 @@ public class ConcurrentSort implements ISort {
 	}
 	
 	private class SortLineThread extends Thread {
-		private Piece firstRowPiece;
-		private int row;
+		private final Piece firstRowPiece;
+		private final int row;
 		//marcatura final del riferimento per evitare race condition tra i vari SortLineThread
 		private final List<Piece> puzzle;
 		
