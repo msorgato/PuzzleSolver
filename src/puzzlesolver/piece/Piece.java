@@ -1,6 +1,8 @@
 package puzzlesolver.piece;
 
-public class Piece {
+import java.io.Serializable;
+
+public class Piece implements Serializable {
 	private final String id; 			//ID del pezzo
 	private final char character;		//carattere contenuto
 	
