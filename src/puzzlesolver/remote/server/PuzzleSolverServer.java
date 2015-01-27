@@ -42,10 +42,10 @@ public class PuzzleSolverServer {
 			Naming.rebind(args[0], solver);
 		} catch (RemoteException e) {
 			System.out.println("Si sono riscontrati problemi nella pubblicazione del riferimento remoto.");
-			published = false;
+			//published = false;
 		} catch (MalformedURLException e) {
 			System.out.println("L'URL specificata nell'argomento di invocazione non e' nel formato corretto.");
-			published = false;
+			//published = false;
 		} 
 		
 		System.out.println("Ci arriva.");
