@@ -2,6 +2,7 @@ package puzzlesolver.remote.server;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class PuzzleSolverServer {
@@ -36,20 +37,23 @@ public class PuzzleSolverServer {
 		if(solver == null)
 			return;
 		
-		boolean published = true;
 		
 		try {
 			Naming.rebind(args[0], solver);
 		} catch (RemoteException e) {
 			System.out.println("Si sono riscontrati problemi nella pubblicazione del riferimento remoto.");
-			published = false;
 		} catch (MalformedURLException e) {
 			System.out.println("L'URL specificata nell'argomento di invocazione non e' nel formato corretto.");
-			published = false;
-		} 
-		
-		if(!published) {
-			System.out.println("falso.");
+		} catch (Exception e) {
+			try {
+				Naming.unbind(args[0]);
+			} catch (RemoteException e1) {
+				e1.printStackTrace();
+			} catch (MalformedURLException e1) {
+				e1.printStackTrace();
+			} catch (NotBoundException e1) {
+				e1.printStackTrace();
+			}
 			return;
 		}
 		
