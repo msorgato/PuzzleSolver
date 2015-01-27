@@ -1,4 +1,4 @@
-package remote.server;
+package puzzlesolver.remote.server;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;

@@ -1,4 +1,4 @@
-package remote.server;
+package puzzlesolver.remote.server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -7,7 +7,7 @@ import java.util.List;
 import puzzlesolver.piece.Piece;
 import puzzlesolver.sort.ConcurrentSort;
 import puzzlesolver.sort.ISort;
-import remote.RemoteSolver;
+import puzzlesolver.remote.RemoteSolver;
 
 public class ConcreteRemoteSolver extends UnicastRemoteObject implements RemoteSolver {
 

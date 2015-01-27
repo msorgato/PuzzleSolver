@@ -1,4 +1,4 @@
-package remote.client;
+package puzzlesolver.remote.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,7 +19,7 @@ import java.util.List;
 import puzzlesolver.parser.IParser;
 import puzzlesolver.parser.PuzzleParser;
 import puzzlesolver.piece.Piece;
-import remote.RemoteSolver;
+import puzzlesolver.remote.RemoteSolver;
 
 public class PuzzleSolverClient {
 	

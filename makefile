@@ -9,6 +9,10 @@ CLASSES = \
 	src/puzzlesolver/piece/Piece.java \
 	src/puzzlesolver/parser/IParser.java \
 	src/puzzlesolver/parser/PuzzleParser.java \
+	src/puzzlesolver/remote/RemoteSolver.java \
+	src/puzzlesolver/remote/server/ConcreteRemoteSolver.java \
+	src/puzzlesolver/remote/server/PuzzleSolverServer.java \
+	src/puzzlesolver/remote/client/PuzzleSolverClient.java \
 	src/puzzlesolver/sort/ISort.java \
 	src/puzzlesolver/sort/SequentialSort.java \
 	src/puzzlesolver/sort/ConcurrentSort.java \
@@ -27,6 +31,9 @@ clean:
 	$(RM) bin/puzzlesolver/*.class
 	$(RM) bin/puzzlesolver/parser/*.class
 	$(RM) bin/puzzlesolver/piece/*.class
+	$(RM) bin/puzzlesolver/remote/*.class
+	$(RM) bin/puzzlesolver/remote/client/*.class
+	$(RM) bin/puzzlesolver/remote/server/*.class
 	$(RM) bin/puzzlesolver/sort/*.class
 	$(RM) bin/puzzlesolver/tests/*.class
 
