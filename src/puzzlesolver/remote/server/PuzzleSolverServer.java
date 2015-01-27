@@ -15,7 +15,7 @@ public class PuzzleSolverServer {
 			e.printStackTrace();
 		}
 			try {
-				Naming.rebind("rmi://localhost/R", solver);
+				Naming.rebind("Razorback", solver);
 			} catch (RemoteException e) {
 				System.out.println("Lancia RemoteException");
 				e.printStackTrace();
