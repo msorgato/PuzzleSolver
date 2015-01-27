@@ -38,6 +38,7 @@ clean:
 	$(RM) bin/puzzlesolver/tests/*.class
 
 start:
+	cd bin &
 	rmiregistry
 	
 stop:
