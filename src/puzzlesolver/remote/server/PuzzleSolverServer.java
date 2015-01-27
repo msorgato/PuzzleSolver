@@ -36,15 +36,20 @@ public class PuzzleSolverServer {
 		if(solver == null)
 			return;
 		
+		boolean published = true;
+		
 		try {
 			Naming.rebind(args[0], solver);
 		} catch (RemoteException e) {
 			System.out.println("Si sono riscontrati problemi nella pubblicazione del riferimento remoto.");
-			return;
+			published = false;
 		} catch (MalformedURLException e) {
 			System.out.println("L'URL specificata nell'argomento di invocazione non e' nel formato corretto.");
-			return;
+			published = false;
 		} 
+		
+		if(!published)
+			return;
 		
 		//stampa di conferma della pubblicazione del riferimento del Server
 		System.out.println("Server Partito!");
