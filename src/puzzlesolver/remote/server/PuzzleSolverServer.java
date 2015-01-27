@@ -2,7 +2,6 @@ package puzzlesolver.remote.server;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class PuzzleSolverServer {
@@ -36,7 +35,6 @@ public class PuzzleSolverServer {
 		
 		if(solver == null)
 			return;
-		
 		
 		try {
 			Naming.rebind(args[0], solver);
