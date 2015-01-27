@@ -1,4 +1,4 @@
 #!/bin/bash
 cd bin
-rmiregistry
+rmiregistry &
 java -cp . puzzlesolver.remote.server.PuzzleSolverServer $1
