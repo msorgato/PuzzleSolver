@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import puzzlesolver.piece.Piece;
+import puzzlesolver.sort.ConcurrentSort;
+import puzzlesolver.sort.ISort;
 import remote.RemoteSolver;
 
 public class ConcreteRemoteSolver extends UnicastRemoteObject implements RemoteSolver {
@@ -13,8 +15,8 @@ public class ConcreteRemoteSolver extends UnicastRemoteObject implements RemoteS
 
 	@Override
 	public Piece[][] sortPuzzle(List<Piece> puzzle) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		ISort sorter = new ConcurrentSort();
+		return sorter.sortPuzzle(puzzle);
 	}
 
 }
