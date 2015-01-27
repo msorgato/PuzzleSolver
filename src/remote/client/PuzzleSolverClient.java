@@ -3,18 +3,23 @@ package remote.client;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
 import puzzlesolver.parser.IParser;
 import puzzlesolver.parser.PuzzleParser;
 import puzzlesolver.piece.Piece;
+import remote.RemoteSolver;
 
 public class PuzzleSolverClient {
 	
@@ -138,6 +143,39 @@ public class PuzzleSolverClient {
 		IParser parser = new PuzzleParser();
 		if(parser.idCheck(pieces) != -1)
 			return;
+		
+		RemoteSolver solver = null;
+		try {
+			solver = (RemoteSolver) Naming.lookup(args[2]);
+		} catch (MalformedURLException e) {
+			System.out.println("L'URL del Server immessa non e' corretta.");
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			System.out.println("Si sono riscontrati problemi con l'invocazione del metodo al Server.");
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			System.out.println("All'indirizzo del Server specificato non e' presente alcun servizio.");
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(solver == null)
+			return;
+		
+		Piece[][] orderedPuzzle = null;
+		try {
+			orderedPuzzle = solver.sortPuzzle(pieces);
+		} catch (RemoteException e) {
+			System.out.println("Il Server si e' disconnesso prima della fine dell'ordinamento.");
+			e.printStackTrace();
+		}
+		
+		if(orderedPuzzle == null)
+			return;
+		
+		String output = puzzleStringBuilder(orderedPuzzle);
+		writeContent(outputPath, output);
 
 	}
 
