@@ -9,13 +9,13 @@ CLASSES = \
 	src/puzzlesolver/piece/Piece.java \
 	src/puzzlesolver/parser/IParser.java \
 	src/puzzlesolver/parser/PuzzleParser.java \
+	src/puzzlesolver/sort/ISort.java \
+	src/puzzlesolver/sort/SequentialSort.java \
+	src/puzzlesolver/sort/ConcurrentSort.java \
 	src/puzzlesolver/remote/RemoteSolver.java \
 	src/puzzlesolver/remote/server/ConcreteRemoteSolver.java \
 	src/puzzlesolver/remote/server/PuzzleSolverServer.java \
 	src/puzzlesolver/remote/client/PuzzleSolverClient.java \
-	src/puzzlesolver/sort/ISort.java \
-	src/puzzlesolver/sort/SequentialSort.java \
-	src/puzzlesolver/sort/ConcurrentSort.java \
 	src/puzzlesolver/tests/CorrectParserTest.java \
 	src/puzzlesolver/tests/CorrectSortTest.java \
 	src/puzzlesolver/tests/WrongParserTest.java \
