@@ -85,27 +85,28 @@ public class PuzzleSolverClient {
 	}
 
 	public static void main(String[] args) {
+		//controlli degli argomenti di invocazione del main di PuzzleSolverClient
 		if(args.length == 0) {
 			System.out.println("Mancano i tre argomenti di invocazione.");
-			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver "
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolverClient "
 					+ "path\\input path\\output nome_del_server");
 			return;
 		}
 		if(args.length == 1) {
 			System.out.println("Mancano due dei tre argomenti di invocazione.");
-			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver "
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolverClient "
 					+ "path\\input path\\output nome_del_server");
 			return;
 		}
 		if(args.length == 2) {
 			System.out.println("Manca un argomento di invocazione");
-			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver "
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolverClient "
 					+ "path\\input path\\output nome_del_server");
 			return;
 		}
 		if(args.length > 3) {
 			System.out.println("Sono presenti troppi argomenti di invocazione.");
-			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolver "
+			System.out.println("Il metodo di invocazione corretto e': java PuzzleSolverClient "
 					+ "path\\input path\\output nome_del_server");
 			return;
 		}
@@ -145,17 +146,15 @@ public class PuzzleSolverClient {
 			return;
 		
 		RemoteSolver solver = null;
+		
 		try {
 			solver = (RemoteSolver) Naming.lookup(args[2]);
 		} catch (MalformedURLException e) {
 			System.out.println("L'URL del Server immessa non e' corretta.");
-			e.printStackTrace();
 		} catch (RemoteException e) {
-			System.out.println("Si sono riscontrati problemi con l'invocazione del metodo al Server.");
-			e.printStackTrace();
+			System.out.println("Si sono riscontrati problemi con l'ottenimento del riferimento al server remoto.");
 		} catch (NotBoundException e) {
 			System.out.println("All'indirizzo del Server specificato non e' presente alcun servizio.");
-			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

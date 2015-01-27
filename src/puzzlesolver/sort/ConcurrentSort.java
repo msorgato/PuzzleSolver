@@ -62,7 +62,7 @@ public class ConcurrentSort implements ISort {
 		
 		public void run() {
 			//stampa di monitoraggio dello stato del thread
-			System.out.println("Thread riga " + (row + 1) + " partito.");
+			//System.out.println("Thread riga " + (row + 1) + " partito.");
 			
 			/*
 			 * MAX_ITER esprime il numero MASSIMO di iterazioni che un thread puo' compiere per
@@ -105,7 +105,7 @@ public class ConcurrentSort implements ISort {
 			thread_ended.incrementEnded();
 			
 			//stampa di monitoraggio dello stato del thread
-			System.out.println("Thread riga " + (row + 1) + " terminato.");
+			//System.out.println("Thread riga " + (row + 1) + " terminato.");
 			
 		}
 	}
