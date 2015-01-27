@@ -37,5 +37,11 @@ clean:
 	$(RM) bin/puzzlesolver/sort/*.class
 	$(RM) bin/puzzlesolver/tests/*.class
 
+start:
+	rmiregistry &
 	
+stop:
+	killall -q rmiregistry &
+	sleep 1
+	killall -q xterm &
 	
