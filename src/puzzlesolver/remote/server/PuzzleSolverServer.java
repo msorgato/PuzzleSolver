@@ -48,6 +48,8 @@ public class PuzzleSolverServer {
 			published = false;
 		} 
 		
+		System.out.println("Ci arriva.");
+		
 		if(!published)
 			return;
 		
