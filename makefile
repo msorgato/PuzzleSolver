@@ -38,10 +38,8 @@ clean:
 	$(RM) bin/puzzlesolver/tests/*.class
 
 start:
-	rmiregistry &
+	rmiregistry
 	
 stop:
-	killall -q rmiregistry &
-	sleep 1
-	killall -q xterm &
+	killall -q rmiregistry
 	
