@@ -36,11 +36,3 @@ clean:
 	$(RM) bin/puzzlesolver/remote/server/*.class
 	$(RM) bin/puzzlesolver/sort/*.class
 	$(RM) bin/puzzlesolver/tests/*.class
-
-start:
-	cd bin &
-	rmiregistry
-	
-stop:
-	killall -q rmiregistry
-	

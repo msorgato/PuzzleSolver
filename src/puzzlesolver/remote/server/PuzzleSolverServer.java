@@ -37,32 +37,14 @@ public class PuzzleSolverServer {
 		if(solver == null)
 			return;
 		
-		boolean bounded = true;
 		
 		try {
 			Naming.rebind(args[0], solver);
 		} catch (RemoteException e) {
 			System.out.println("Si sono riscontrati problemi nella pubblicazione del riferimento remoto.");
-			bounded = false;
+			return;
 		} catch (MalformedURLException e) {
 			System.out.println("L'URL specificata nell'argomento di invocazione non e' nel formato corretto.");
-			bounded = false;
-		}
-		
-		if(!bounded) {
-			try {
-				Naming.unbind(args[0]);
-				System.out.println("yeah");
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return;
 		}
 		
