@@ -11,7 +11,7 @@ import puzzlesolver.remote.RemoteSolver;
 
 public class ConcreteRemoteSolver extends UnicastRemoteObject implements RemoteSolver {
 	
-	//costruttore vuoto con possibile lancio di RemoteException
+	//costruttore vuoto con possibile lancio di RemoteException, invocabile solamente da dentro remote.server
 	protected ConcreteRemoteSolver() throws RemoteException { }
 
 	public Piece[][] sortPuzzle(List<Piece> puzzle) throws RemoteException {

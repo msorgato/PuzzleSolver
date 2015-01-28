@@ -1,0 +1,6 @@
+prova test
+
+p	r	o	v	a
+ 	t	e	s	t
+
+Il puzzle e' formato da 2 righe e 5 colonne

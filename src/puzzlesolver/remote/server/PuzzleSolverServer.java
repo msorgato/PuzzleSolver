@@ -25,6 +25,7 @@ public class PuzzleSolverServer {
 			return;
 		}		
 		
+		//creazione dell'istanza di ConcreteRemoteSolver
 		ConcreteRemoteSolver solver = null;
 		try {
 			solver = new ConcreteRemoteSolver();
@@ -36,6 +37,7 @@ public class PuzzleSolverServer {
 		if(solver == null)
 			return;
 		
+		//pubblicazione sul registro rmi del riferimento all'oggetto remoto del Server
 		try {
 			Naming.rebind(args[0], solver);
 		} catch (RemoteException e) {

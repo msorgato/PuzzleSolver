@@ -6,10 +6,10 @@ public class Piece implements Serializable {
 	private final String id; 			//ID del pezzo
 	private final char character;		//carattere contenuto
 	
-	private final String n_id;			//\
+	private final String n_id;			//-
 	private final String e_id;			//- ID
 	private final String s_id;			//- CARDINALI
-	private final String w_id;			///
+	private final String w_id;			//-
 	
 	//Costruttore completo
 	public Piece(String id, char character, String n_id, String e_id, String s_id, String w_id) {	

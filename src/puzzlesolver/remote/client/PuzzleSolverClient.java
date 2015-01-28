@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
+import java.rmi.ConnectException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -20,7 +21,8 @@ import puzzlesolver.piece.Piece;
 import puzzlesolver.remote.RemoteSolver;
 
 public class PuzzleSolverClient {
-
+	
+	//metodo di lettura da file
 	private static List<String> readContent(String inputPath) {
 		List<String> content = new ArrayList<String>();
 		BufferedReader reader = null;
@@ -31,7 +33,7 @@ public class PuzzleSolverClient {
 				content.add(line);
 			}
 			IParser parser = new PuzzleParser();
-			int index = parser.parsePuzzle(content.toArray(new String[content.size()])); 
+			int index = parser.parsePuzzle(content.toArray(new String[content.size()])); //controllo della conformita' dell'input
 			if(index != -1) {
 				System.out.println("Sono stati riscontrati problemi nella sintassi del file alla riga " + (index + 1));
 				content = null;
@@ -42,7 +44,7 @@ public class PuzzleSolverClient {
 		} finally {
 			try {
 				if(reader != null)
-					reader.close();
+					reader.close();						//chiusura dello stream
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -50,6 +52,7 @@ public class PuzzleSolverClient {
 		return content;
 	}
 	
+	//metodo di scrittura su file
 	private static void writeContent(String file, String content) {
 		BufferedWriter writer = null;
 		try {																		//cerca di scrivere nel file di percorso "file",
@@ -128,7 +131,8 @@ public class PuzzleSolverClient {
 		String inputPath = args[0];
 		String outputPath = args[1];
 		
-		List<String> input = readContent(inputPath);
+		//lettura dal file specificato da inputPath
+		List<String> input = readContent(inputPath);	
 		
 		List<Piece> pieces = new ArrayList<Piece>();
 		if(input != null) 
@@ -138,10 +142,12 @@ public class PuzzleSolverClient {
 			return;
 		}
 		
+		//controllo sommario degli id dei pezzi
 		IParser parser = new PuzzleParser();
 		if(parser.idCheck(pieces) != -1)
 			return;
 		
+		//ottenimento del riferimento all'oggetto remoto per l'ordinamento del puzzle
 		RemoteSolver solver = null;
 		
 		try {
@@ -159,17 +165,19 @@ public class PuzzleSolverClient {
 		if(solver == null)
 			return;
 		
+		//chiamata del metodo remoto
 		Piece[][] orderedPuzzle = null;
 		try {
 			orderedPuzzle = solver.sortPuzzle(pieces);
 		} catch (RemoteException e) {
-			System.out.println("Il Server si e' disconnesso prima della fine dell'ordinamento.");
+			System.out.println("La comunicazione con il Server si e' interrotta prima della fine dell'ordinamento.");
 			e.printStackTrace();
 		}
 		
 		if(orderedPuzzle == null)
 			return;
 		
+		//preparazione e scrittura su file del risultato dell'ordinamento
 		String output = puzzleStringBuilder(orderedPuzzle);
 		writeContent(outputPath, output);
 
